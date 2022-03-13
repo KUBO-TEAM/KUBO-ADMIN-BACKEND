@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CropImageComponent } from './components/crop-image/crop-image.component';
-import { RecipeInfoComponent } from './components/recipe-info/recipe-info.component';
-import { RecipeCrudOverviewComponent } from './components/recipe-crud-overview/recipe-crud-overview.component';
-import { RecipeAddComponent } from './components/recipe-add/recipe-add.component';
-import { RecipeUpdateComponent } from './components/recipe-update/recipe-update.component';
+import { CropImageComponent } from './presentation/crop-image/crop-image.component';
+import { RecipeCrudOverviewComponent } from './presentation/recipe-crud-overview/recipe-crud-overview.component';
+import { RecipeAddComponent } from './presentation/recipe-add/recipe-add.component';
+import { RecipeUpdateComponent } from './presentation/recipe-update/recipe-update.component';
 
 const routes: Routes = [
   {path: 'overview', component: RecipeCrudOverviewComponent},
@@ -18,4 +17,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class RecipeCrudRoutingModule { }

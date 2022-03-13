@@ -1,6 +1,6 @@
-import Recipe from "../models/recipe.model.js";
+const Recipe = require("../models/recipe.model.js");
 
-export async function getAllRecipes(req, res, next){
+async function getAllRecipes(req, res, next){
 	const recipes = await Recipe.find({});
 
 	if(recipes){
@@ -15,7 +15,7 @@ export async function getAllRecipes(req, res, next){
 	}
 }
 
-export async function createRecipe(req, res, next) {
+async function createRecipe(req, res, next) {
 	const body = req.body;
 	const file = req.file;
 
@@ -34,3 +34,9 @@ export async function createRecipe(req, res, next) {
 		data: createdRecipe,
 	});
 }
+
+module.exports = {
+  getAllRecipes,
+  createRecipe
+}
+

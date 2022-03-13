@@ -1,14 +1,14 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import path from 'path';
-import UtilsRouter from './backend/routers/utils.router.js';
-import RecipeRouter from './backend/routers/recipe.router.js';
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+// const path = require('path');
+const UtilsRouter = require('./backend/routers/utils.router.js');
+const RecipeRouter = require('./backend/routers/recipe.router.js');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 dotenv.config();
 

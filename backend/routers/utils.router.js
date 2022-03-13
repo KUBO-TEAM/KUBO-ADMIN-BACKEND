@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 
 const UtilsRouter = express.Router();
 
@@ -18,4 +18,4 @@ UtilsRouter.use((req, res, next) => {
   next();
 });
 
-export default UtilsRouter;
+module.exports = UtilsRouter;

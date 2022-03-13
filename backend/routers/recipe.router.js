@@ -1,7 +1,7 @@
-import express from 'express';
-import multer from 'multer';
+const express = require('express');
+const multer = require('multer');
 
-import { createRecipe, getAllRecipes } from '../middlewares/recipe.middleware.js';
+const { createRecipe, getAllRecipes } = require('../middlewares/recipe.middleware.js');
 
 const RecipeRouter = express.Router();
 
@@ -21,4 +21,4 @@ var upload = multer({ storage: storage });
 
 RecipeRouter.post('/create', upload.single('recipeImage'), createRecipe);
 
-export default RecipeRouter;
+module.exports = RecipeRouter;
