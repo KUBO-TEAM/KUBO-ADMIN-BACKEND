@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { Observable } from 'rxjs';
-import { cropImageSuccess } from '../../states/crop_image_state/crop_image.reducer';
+import { cropImageSuccess } from '../ngrx/crop_image/crop_image.reducer';
 
 @Component({
   selector: 'app-crop-image',

@@ -11,7 +11,7 @@ import { RecipeRepositoryMapper } from "./recipe-repository-mapper";
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeRepositoryImpl extends RecipeRepository{
+export class RecipeRepositoryImpl extends RecipeRepository {
 
   mapper = new RecipeRepositoryMapper();
 
@@ -24,7 +24,6 @@ export class RecipeRepositoryImpl extends RecipeRepository{
   getAllRecipes(): Observable<RecipeModel> {
     return this.http.get<{message: string, data: RecipeEntity[]}>(environment.url + 'api/recipe/all')
       .pipe(mergeMap((item) => {
-        console.log(item.message);
 
         return item.data
       }))

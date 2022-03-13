@@ -11,6 +11,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { SharedModule } from '../../shared/shared.module';
+import { NgrxModule } from './ngrx/ngrx.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { SharedModule } from '../../shared/shared.module';
     ImageCropperModule,
     MatIconModule,
     ReactiveFormsModule,
+    NgrxModule,
+    RouterModule,
   ],
 })
 export class PresentationModule { }

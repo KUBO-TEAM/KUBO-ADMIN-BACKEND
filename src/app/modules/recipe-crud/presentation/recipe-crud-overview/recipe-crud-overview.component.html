@@ -5,5 +5,5 @@
   <app-floating-button routerLink="add">
     <mat-icon>add</mat-icon>
   </app-floating-button>
-  <app-recipe-table></app-recipe-table>
+  <app-recipe-table *ngIf="(recipes$ | async) as recipes" [recipes]="recipes"></app-recipe-table>
 </app-container>

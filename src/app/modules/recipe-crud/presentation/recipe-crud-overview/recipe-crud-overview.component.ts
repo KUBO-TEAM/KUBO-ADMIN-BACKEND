@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { RecipeModel } from '../../core/domain/recipe.model';
-import { GetAllRecipesUsecase } from '../../core/usecases/get-all-recipes.usecase';
+import { RecipeService } from '../ngrx/recipe/recipe.service';
 
 @Component({
   selector: 'app-recipe-crud-overview',
@@ -9,19 +11,16 @@ import { GetAllRecipesUsecase } from '../../core/usecases/get-all-recipes.usecas
 })
 export class RecipeCrudOverviewComponent implements OnInit {
 
-  recipes: Array<RecipeModel> = [];
+  recipes$: Observable<Array<RecipeModel>>;
 
-  constructor(private getAllRecipes: GetAllRecipesUsecase) { }
-
-  ngOnInit(): void {
-    this.updateRecipes();
+  constructor(
+    private recipeService: RecipeService,
+    private store: Store<{ getAllRecipeReducer: Array<RecipeModel>}>,
+  ) {
+    this.recipes$ = this.store.select('getAllRecipeReducer');
   }
 
-  updateRecipes(){
-    this.getAllRecipes.execute().subscribe((value: RecipeModel)=>{
-      console.log(value);
-
-      this.recipes.push(value);
-    });
+  ngOnInit(): void {
+    this.recipeService.getAllRecipe();
   }
 }

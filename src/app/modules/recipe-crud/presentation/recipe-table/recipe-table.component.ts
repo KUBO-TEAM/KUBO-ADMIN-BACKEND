@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import { RecipeModel } from '../../core/domain/recipe.model';
 import { RecipeEntity } from '../../data/repository/recipe-repository/recipe-entity';
 
 
@@ -15,12 +16,12 @@ import { RecipeEntity } from '../../data/repository/recipe-repository/recipe-ent
 export class RecipeTableComponent {
 
 
-  @Input('recipesData') recipesData : RecipeEntity[] = [];
+  @Input('recipes') recipes : Array<RecipeModel>  = [];
 
   constructor(
-    private readonly router: Router
   ){}
 
   overviewTableColumns: string[] = ['_id', 'name', 'description', 'reference', 'ingredients'];
+
 }
 

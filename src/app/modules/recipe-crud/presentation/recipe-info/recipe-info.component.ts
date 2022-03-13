@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { cropImage } from '../../states/crop_image_state/crop_image.reducer';
+import { cropImage } from '../ngrx/crop_image/crop_image.reducer';
 
 @Component({
   selector: 'app-recipe-info',
