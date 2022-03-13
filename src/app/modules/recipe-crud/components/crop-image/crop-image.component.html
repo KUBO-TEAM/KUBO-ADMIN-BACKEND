@@ -1,0 +1,25 @@
+<app-header></app-header>
+
+<app-floating-button (click)="sendCroppedImage()" >Crop</app-floating-button>
+
+<app-container class="justify-center flex items-center">
+
+  <div class='float-left' >
+
+      <image-cropper
+        *ngIf="(imageChangedEvent$ | async) as imageChangedEvent"
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="3/4"
+        [resizeToWidth]="500"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady()"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+
+  </div>
+
+
+</app-container>
