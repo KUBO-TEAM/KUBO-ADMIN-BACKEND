@@ -4,4 +4,5 @@ export interface RecipeMockEntity{
   description: string;
   reference: string;
   ingredients: string[];
+  displayPhoto: string;
 }

@@ -6,7 +6,7 @@
 
 <app-container>
 
-  <app-recipe-info></app-recipe-info>
+  <app-recipe-info [recipe]="recipe$ | async" ></app-recipe-info>
 
   <app-button [expand]="true">
     Update Recipe

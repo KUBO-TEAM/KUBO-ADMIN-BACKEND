@@ -4,4 +4,5 @@ export interface RecipeEntity{
   description: string,
   reference: string,
   ingredients: string[],
+  displayPhoto: string;
 }

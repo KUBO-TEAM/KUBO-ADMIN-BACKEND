@@ -11,6 +11,13 @@
 
     </ng-container>
 
+    <ng-container *ngIf="recipe?.displayPhoto">
+      <div
+        id="recipe-picture"
+        [style.background-image]="'url(' + displayRecipePhoto(recipe?.displayPhoto) + ')'">
+      </div>
+    </ng-container>
+
     <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
 
     <app-button (click)="fileUploadElement.click()">
@@ -18,9 +25,9 @@
     </app-button>
   </div>
 
-  <app-input placeholder="Name" formControlName='name'></app-input>
-  <app-input placeholder="Description" formControlName='description'></app-input>
-  <app-input placeholder="References" textArea formControlName='references'></app-input>
+  <app-input placeholder="Name" formControlName='name' value="{{recipe?.name}}"></app-input>
+  <app-input placeholder="Description" formControlName='description' value="{{recipe?.description}}"></app-input>
+  <app-input placeholder="References" textArea formControlName='reference' value="{{recipe?.reference}}"></app-input>
 
   <ul class="my-4">
     <li *ngFor="let ingridient of ingredientList" class="mt-[12px]">

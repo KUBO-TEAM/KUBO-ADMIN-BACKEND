@@ -4,4 +4,5 @@ export interface RecipeModel {
   description: string;
   reference: string;
   ingredients: string[];
+  displayPhoto: string;
 }
