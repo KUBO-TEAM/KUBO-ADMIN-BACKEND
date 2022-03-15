@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-// const path = require('path');
+const path = require('path');
 const UtilsRouter = require('./backend/routers/utils.router.js');
 const RecipeRouter = require('./backend/routers/recipe.router.js');
 
@@ -18,6 +18,9 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 
 app.use(UtilsRouter);
 app.use('/api/recipe', RecipeRouter);
+
+console.log(path.resolve());
+app.use('/media', express.static(path.join(__dirname, '/media/photos')));
 
 // app.use(express.static(path.join(__dirname, '/frontend/build/web')));
 

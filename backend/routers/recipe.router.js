@@ -1,10 +1,11 @@
 const express = require('express');
 const multer = require('multer');
 
-const { createRecipe, getAllRecipes } = require('../middlewares/recipe.middleware.js');
+const { createRecipe, getAllRecipes, getRecipe } = require('../middlewares/recipe.middleware.js');
 
 const RecipeRouter = express.Router();
 
+RecipeRouter.get('/single/:id', getRecipe);
 RecipeRouter.get('/all', getAllRecipes);
 
 var storage = multer.diskStorage({

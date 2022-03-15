@@ -10,11 +10,11 @@ const routes: Routes = [
   {path: 'overview/add', component: RecipeAddComponent},
   {path: 'overview/add/crop-image', component: CropImageComponent},
 
-  {path: 'overview/update', component: RecipeUpdateComponent},
+  {path: 'overview/update/:id', component: RecipeUpdateComponent},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', })],
   exports: [RouterModule]
 })
 

@@ -1,6 +1,6 @@
 import { inject, TestBed } from "@angular/core/testing";
 import { RecipeRepository } from "../../../core/repositories/recipe.repository";
-import { RecipeMockRepositoryImpl } from "./recipe-mock-repository";
+import { RecipeMockRepositoryImpl } from "./recipe-mock-repository-impl";
 
 describe('RecipeRepositoryMockService', ()=> {
   beforeEach(()=>{

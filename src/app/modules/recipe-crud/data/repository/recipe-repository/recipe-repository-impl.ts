@@ -30,4 +30,12 @@ export class RecipeRepositoryImpl extends RecipeRepository {
       .pipe(map(this.mapper.mapFrom));
   }
 
+  getRecipe(_id: string): Observable<RecipeModel> {
+    return this.http.get<{message: string, data: RecipeEntity}>(environment.url + `api/recipe/single/${_id}`)
+      .pipe(map((item)=>item.data))
+      .pipe(map(this.mapper.mapFrom));
+  }
+
+
+
 }

@@ -35,6 +35,6 @@
     mat-row
     *matRowDef="let row; columns: overviewTableColumns;"
     class="cursor-pointer hover:bg-gray-100"
-    routerLink="update"
+    [routerLink]="['update', row._id]"
   ></tr>
 </table>

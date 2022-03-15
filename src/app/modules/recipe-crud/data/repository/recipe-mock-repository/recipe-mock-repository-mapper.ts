@@ -11,6 +11,7 @@ export class RecipeMockRepositoryMapper extends Mapper <RecipeMockEntity, Recipe
       description: param.description,
       reference: param.reference,
       ingredients: param.ingredients,
+      displayPhoto: param.displayPhoto,
     }
   }
   mapTo(param: RecipeModel): RecipeMockEntity {
@@ -20,6 +21,7 @@ export class RecipeMockRepositoryMapper extends Mapper <RecipeMockEntity, Recipe
       description: param.description,
       reference: param.reference,
       ingredients: param.ingredients,
+      displayPhoto: param.displayPhoto,
     }
   }
 

@@ -4,15 +4,41 @@ async function getAllRecipes(req, res, next){
 	const recipes = await Recipe.find({});
 
 	if(recipes){
+
 		res.send({
 			message: 'Successfully fetch recipes!',
 			data: recipes,
 		});
+
 	}else{
+
 		res.status(401).send({
-			message: 'Cannot fetch error',
-		})
+			message: 'Cannot fetch recipes',
+		});
+
 	}
+}
+
+async function getRecipe(req, res, next){
+
+  const _id = req.params.id;
+
+  const recipe = await Recipe.findById(_id);
+
+  if(recipe){
+
+    res.send({
+      message: 'Successfully fetch recipe!',
+      data: recipe,
+    });
+
+  }else{
+
+    res.status(401).send({
+      message: 'Cannot fetch recipe'
+    });
+
+  }
 }
 
 async function createRecipe(req, res, next) {
@@ -37,6 +63,7 @@ async function createRecipe(req, res, next) {
 
 module.exports = {
   getAllRecipes,
-  createRecipe
+  getRecipe,
+  createRecipe,
 }
 
