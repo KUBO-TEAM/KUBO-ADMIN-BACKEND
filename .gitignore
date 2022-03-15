@@ -43,5 +43,5 @@ Thumbs.db
 .env
 
 #Dev Files
-backend/dev
-src/app/dev
+backend/dev/*
+src/app/dev/*
