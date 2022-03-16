@@ -1,4 +1,4 @@
 
-<mat-checkbox>
-  <ng-content ></ng-content>
+<mat-checkbox (change)="toggleNewItem($event)">
+  {{value}}
 </mat-checkbox>

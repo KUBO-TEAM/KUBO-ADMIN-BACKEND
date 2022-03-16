@@ -31,9 +31,10 @@
 
   <ul class="my-4">
     <li *ngFor="let ingridient of ingredientList" class="mt-[12px]">
-      <app-checkbox>{{ingridient}}</app-checkbox>
+      <app-checkbox (change)="ingredientsListener($event)" [value]="ingridient"></app-checkbox>
     </li>
   </ul>
+
 
   <ng-content select="[submit]"></ng-content>
 

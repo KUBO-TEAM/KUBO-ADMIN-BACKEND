@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RecipeModel } from '../../core/domain/recipe.model';
 import { cropImage } from '../ngrx/crop_image/crop_image.reducer';
-
+import { RecipeService } from '../ngrx/recipe/recipe.service';
 @Component({
   selector: 'app-recipe-info',
   templateUrl: './recipe-info.component.html',
@@ -18,6 +18,8 @@ export class RecipeInfoComponent implements OnInit {
 
   imagePath$ : Observable<string | null>;
   form : FormGroup;
+
+  ingredients: Array<string> = [];
 
   ingredientList : string[] = [
     'Talong',
@@ -36,6 +38,7 @@ export class RecipeInfoComponent implements OnInit {
     private _fb: FormBuilder,
     private router : Router,
     private store : Store<{ cropImageReducer : string | null }>,
+    private recipeService: RecipeService,
   ) {
     this.imagePath$ = this.store.select('cropImageReducer');
 
@@ -63,9 +66,29 @@ export class RecipeInfoComponent implements OnInit {
     return undefined;
   }
 
+  ingredientsListener($event: {checked: boolean, value: string }){
+
+    if($event.checked){
+      this.ingredients.push($event.value);
+    }else{
+      this.ingredients = this.ingredients.filter((ingredient) => ingredient != $event.value);
+    }
+
+  }
+
   submit(){
     const name = this.form.get('name');
-    const references = this.form.get('references');
+    const description = this.form.get('description');
+    const reference = this.form.get('reference');
+
+
+    this.recipeService.addRecipe({
+      name: name?.value,
+      description: description?.value,
+      ingredients: this.ingredients,
+      reference: reference?.value,
+    });
+
   }
 
 }

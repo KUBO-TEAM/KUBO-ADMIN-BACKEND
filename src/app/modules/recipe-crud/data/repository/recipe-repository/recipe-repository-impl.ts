@@ -36,6 +36,9 @@ export class RecipeRepositoryImpl extends RecipeRepository {
       .pipe(map(this.mapper.mapFrom));
   }
 
+  addRecipe(recipe: RecipeModel): Observable<{ message: string; }> {
+    return this.http.post<{message : string}>(environment.url + 'api/recipe/add', recipe);
+  }
 
 
 }

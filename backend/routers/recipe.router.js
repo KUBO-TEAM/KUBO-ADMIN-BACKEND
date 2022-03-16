@@ -20,6 +20,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage });
 
-RecipeRouter.post('/create', upload.single('recipeImage'), createRecipe);
+RecipeRouter.post('/add', upload.single('recipeImage'), createRecipe);
 
 module.exports = RecipeRouter;

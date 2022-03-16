@@ -29,8 +29,6 @@ export class InputComponent implements OnInit, ControlValueAccessor  {
 
   writeValue(value: any): void {
     this.value = value;
-    console.log(value);
-
   }
 
   registerOnChange(fn: any): void {
