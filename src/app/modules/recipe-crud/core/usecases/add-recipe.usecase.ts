@@ -7,13 +7,13 @@ import { RecipeRepository } from "../repositories/recipe.repository";
 @Injectable({
   providedIn: 'root'
 })
-export class AddRecipeUseCase implements UseCase<RecipeModel, {message: string}>{
+export class AddRecipeUseCase implements UseCase<FormData, {message: string}>{
 
   constructor(
     private recipeRepository: RecipeRepository,
   ){}
 
-  execute(params: RecipeModel): Observable<{message: string}> {
+  execute(params: FormData): Observable<{message: string}> {
     return this.recipeRepository.addRecipe(params);
   }
 

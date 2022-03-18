@@ -43,3 +43,6 @@ Thumbs.db
 .env
 .env-prod
 .env-staging
+
+/media/photos/*
+!/media/photos/README.md

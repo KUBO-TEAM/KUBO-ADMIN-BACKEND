@@ -55,6 +55,7 @@ async function createRecipe(req, res, next) {
 
 	const createdRecipe = await newRecipe.save();
 
+
 	res.send({
 		message: 'Successfully upload image!',
 		data: createdRecipe,

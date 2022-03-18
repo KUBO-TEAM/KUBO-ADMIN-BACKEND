@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { RecipeModel } from '../../core/domain/recipe.model';
 import { cropImage } from '../ngrx/crop_image/crop_image.reducer';
@@ -82,12 +82,21 @@ export class RecipeInfoComponent implements OnInit {
     const reference = this.form.get('reference');
 
 
-    this.recipeService.addRecipe({
-      name: name?.value,
-      description: description?.value,
-      ingredients: this.ingredients,
-      reference: reference?.value,
+    this.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
+
+      this.recipeService.addRecipe(
+        {
+          name: name?.value,
+          description: description?.value,
+          ingredients: this.ingredients,
+          reference: reference?.value,
+          displayPhoto: imagePath,
+        }
+      );
+
+
     });
+
 
   }
 
