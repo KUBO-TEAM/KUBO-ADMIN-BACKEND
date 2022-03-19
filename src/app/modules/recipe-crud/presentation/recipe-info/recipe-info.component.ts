@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -12,11 +12,12 @@ import { RecipeService } from '../ngrx/recipe/recipe.service';
   templateUrl: './recipe-info.component.html',
   styleUrls: ['./recipe-info.component.sass']
 })
-export class RecipeInfoComponent implements OnInit {
+export class RecipeInfoComponent implements OnInit, OnDestroy {
 
   @Input('recipe') recipe: RecipeModel | null  = null;
 
   imagePath$ : Observable<string | null>;
+  recipeInprogress$ : Observable<RecipeModel | undefined>;
   form : FormGroup;
 
   ingredients: Array<string> = [];
@@ -37,10 +38,11 @@ export class RecipeInfoComponent implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private router : Router,
-    private store : Store<{ cropImageReducer : string | null }>,
+    private store : Store<{ cropImageReducer : string | null, addRecipeReducer: RecipeModel | undefined }>,
     private recipeService: RecipeService,
   ) {
     this.imagePath$ = this.store.select('cropImageReducer');
+    this.recipeInprogress$ = this.store.select('addRecipeReducer');
 
     this.form = this._fb.group({
       name: [],
@@ -50,9 +52,35 @@ export class RecipeInfoComponent implements OnInit {
 
    }
 
-  ngOnInit(): void {
 
+  ngOnDestroy(): void {
+    this.recipeService.addRecipeInProgress({
+      ...this.form.value,
+      ingredients: this.ingredients,
+    });
   }
+
+  ngOnInit(): void {
+    if(this.recipe){
+      this.form.patchValue({
+        name: this.recipe.name,
+        description: this.recipe.description,
+        reference: this.recipe.reference,
+      });
+    }else{
+
+      this.recipeInprogress$.pipe(take(1)).subscribe((recipe : any)=>{
+
+        if(recipe){
+          this.form.patchValue({
+            ...recipe,
+          });
+        }
+      });
+
+    }
+  }
+
 
   fileChangeEvent(event: any) {
     this.store.dispatch(cropImage({event}));
@@ -84,7 +112,7 @@ export class RecipeInfoComponent implements OnInit {
 
     this.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
 
-      this.recipeService.addRecipe(
+      this.recipeService.addRecipeSuccess(
         {
           name: name?.value,
           description: description?.value,

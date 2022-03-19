@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { SnackbarService } from 'src/app/modules/shared/services/snackbar.service';
 import { RecipeModel } from '../../../core/domain/recipe.model';
 import { AddRecipeUseCase } from '../../../core/usecases/add-recipe.usecase';
 import { GetAllRecipesUsecase } from '../../../core/usecases/get-all-recipes.usecase';
 import { GetRecipeUseCase } from '../../../core/usecases/get-recipe-usecase';
 import { cropImageReset } from '../crop_image/crop_image.reducer';
+import { addRecipeInProgress, addRecipeSuccess } from './add-recipe/add-recipe-action';
 import { recipeFetchInProgress, recipeFetchSuccess } from './get-all-recipes/get-all-recipe-actions';
 import { singleRecipeSuccess } from './get-recipe/get-recipe-actions';
 
@@ -22,6 +24,7 @@ export class RecipeService {
     private addRecipeUseCase: AddRecipeUseCase,
     private store: Store<{}>,
     private route: Router,
+    private _snackBarServices : SnackbarService,
   ) { }
 
   getAllRecipe(){
@@ -38,7 +41,13 @@ export class RecipeService {
     });
   }
 
-  addRecipe(
+  addRecipeInProgress(
+    recipe: RecipeModel
+  ){
+    this.store.dispatch(addRecipeInProgress({recipe}));
+  }
+
+  addRecipeSuccess(
     recipe: RecipeModel
   ){
 
@@ -59,6 +68,8 @@ export class RecipeService {
         this.addRecipeUseCase.execute(recipeFormData).subscribe((response: { message: string })=> {
           const message = response.message;
 
+          this.store.dispatch(addRecipeSuccess());
+          this._snackBarServices.openDuratedSnackBar(message);
           this.store.dispatch(cropImageReset());
           this.route.navigate(['/overview']);
 
