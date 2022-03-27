@@ -22,7 +22,7 @@ export class RecipeRepositoryImpl extends RecipeRepository {
   }
 
   getAllRecipes(): Observable<RecipeModel> {
-    return this.http.get<{message: string, data: RecipeEntity[]}>(environment.url + 'api/recipe/all')
+    return this.http.get<{message: string, data: RecipeEntity[]}>(environment.url + 'api/recipe/')
       .pipe(mergeMap((item) => {
 
         return item.data

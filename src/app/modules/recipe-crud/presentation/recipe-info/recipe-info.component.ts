@@ -87,12 +87,6 @@ export class RecipeInfoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/overview/add/crop-image']);
   }
 
-  displayRecipePhoto(name : string | undefined){
-    if(name){
-      return environment.url + 'media/' + name;
-    }
-    return undefined;
-  }
 
   ingredientsListener($event: {checked: boolean, value: string }){
 
