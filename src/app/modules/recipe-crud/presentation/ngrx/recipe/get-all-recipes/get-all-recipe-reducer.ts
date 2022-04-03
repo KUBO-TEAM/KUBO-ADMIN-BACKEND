@@ -7,7 +7,7 @@ const GET_ALL_RECIPE_INITIAL_STATE : Array<RecipeModel> = [];
 
 const GET_ALL_RECIPE_REDUCER = createReducer(
   GET_ALL_RECIPE_INITIAL_STATE,
-  on(recipeFetchInProgress, (state) => state),
+  on(recipeFetchInProgress, (state) => []),
   on(recipeFetchSuccess, (state, {recipe}) => [...state , recipe]),
   on(recipeFetchFailure, (state) => state),
 );

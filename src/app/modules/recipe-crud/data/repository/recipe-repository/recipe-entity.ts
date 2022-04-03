@@ -1,8 +1,8 @@
 export interface RecipeEntity{
-  _id: string,
+  _id?: string,
   name: string,
   description: string,
   reference: string,
   ingredients: string[],
-  displayPhoto: string;
+  displayPhoto?: string;
 }

@@ -8,6 +8,10 @@ import { RecipeMockRepositoryMapper } from "./recipe-mock-repository-mapper";
   providedIn: 'root'
 })
 export class RecipeMockRepositoryImpl extends RecipeRepository{
+
+  addRecipe(recipeFormData: FormData): Observable<{ message: string; }> {
+    throw new Error("Method not implemented.");
+  }
   private mapper = new RecipeMockRepositoryMapper();
 
   remoteMockData = {

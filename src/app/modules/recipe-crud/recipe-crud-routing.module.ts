@@ -4,13 +4,29 @@ import { CropImageComponent } from './presentation/crop-image/crop-image.compone
 import { RecipeCrudOverviewComponent } from './presentation/recipe-crud-overview/recipe-crud-overview.component';
 import { RecipeAddComponent } from './presentation/recipe-add/recipe-add.component';
 import { RecipeUpdateComponent } from './presentation/recipe-update/recipe-update.component';
+import { AuthGuard } from '../shared/services/auth.guard';
 
 const routes: Routes = [
-  {path: 'overview', component: RecipeCrudOverviewComponent},
-  {path: 'overview/add', component: RecipeAddComponent},
-  {path: 'overview/add/crop-image', component: CropImageComponent},
-
-  {path: 'overview/update/:id', component: RecipeUpdateComponent},
+  {
+    path: 'overview',
+    component: RecipeCrudOverviewComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'overview/add',
+    component: RecipeAddComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'overview/add/crop-image',
+    component: CropImageComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'overview/update/:id',
+    component: RecipeUpdateComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

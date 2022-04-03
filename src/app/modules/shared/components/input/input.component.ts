@@ -1,5 +1,6 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { EventEmitter } from 'stream';
 
 @Component({
   selector: 'app-input',
@@ -17,7 +18,7 @@ export class InputComponent implements OnInit, ControlValueAccessor  {
 
   @Input('placeholder') placeholder : string = 'Input placeholder';
   @Input('type') type : string = 'text';
-  @Input('value') value : any;
+  @Input('value') value : any = '';
 
   onChange: any = () => { };
   onTouched: any = () => { };
@@ -29,8 +30,6 @@ export class InputComponent implements OnInit, ControlValueAccessor  {
 
   writeValue(value: any): void {
     this.value = value;
-    console.log(value);
-
   }
 
   registerOnChange(fn: any): void {

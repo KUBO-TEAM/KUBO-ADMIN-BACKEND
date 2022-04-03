@@ -1,9 +1,16 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { SnackbarService } from 'src/app/modules/shared/services/snackbar.service';
 import { RecipeModel } from '../../../core/domain/recipe.model';
+import { AddRecipeUseCase } from '../../../core/usecases/add-recipe.usecase';
 import { GetAllRecipesUsecase } from '../../../core/usecases/get-all-recipes.usecase';
 import { GetRecipeUseCase } from '../../../core/usecases/get-recipe-usecase';
-import { recipeFetchSuccess } from './get-all-recipes/get-all-recipe-actions';
+import { cropImageReset } from '../crop_image/crop_image.reducer';
+import { addRecipeInProgress, addRecipeSuccess } from './add-recipe/add-recipe-action';
+import { recipeFetchInProgress, recipeFetchSuccess } from './get-all-recipes/get-all-recipe-actions';
 import { singleRecipeSuccess } from './get-recipe/get-recipe-actions';
 
 @Injectable({
@@ -14,10 +21,15 @@ export class RecipeService {
   constructor(
     private getAllRecipeUsecase: GetAllRecipesUsecase,
     private getRecipeUseCase: GetRecipeUseCase,
+    private addRecipeUseCase: AddRecipeUseCase,
     private store: Store<{}>,
+    private route: Router,
+    private _snackBarServices : SnackbarService,
   ) { }
 
   getAllRecipe(){
+    this.store.dispatch(recipeFetchInProgress());
+
     this.getAllRecipeUsecase.execute().subscribe((value: RecipeModel)=>{
       this.store.dispatch(recipeFetchSuccess({recipe: value}));
     });
@@ -28,5 +40,46 @@ export class RecipeService {
       this.store.dispatch(singleRecipeSuccess({recipe: value}));
     });
   }
+
+  addRecipeInProgress(
+    recipe: RecipeModel
+  ){
+    this.store.dispatch(addRecipeInProgress({recipe}));
+  }
+
+  addRecipeSuccess(
+    recipe: RecipeModel
+  ){
+
+
+    if(recipe.displayPhoto){
+      fetch(recipe.displayPhoto)
+      .then(res => res.blob())
+      .then(displayPhoto => {
+
+        const recipeFormData = new FormData();
+
+        recipeFormData.append('name', recipe.name);
+        recipeFormData.append('description', recipe.description);
+        recipeFormData.append('reference', recipe.reference);
+        recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
+        recipeFormData.append('displayPhoto', displayPhoto);
+
+        this.addRecipeUseCase.execute(recipeFormData).subscribe((response: { message: string })=> {
+          const message = response.message;
+
+          this.store.dispatch(addRecipeSuccess());
+          this._snackBarServices.openDuratedSnackBar(message);
+          this.store.dispatch(cropImageReset());
+          this.route.navigate(['/overview']);
+
+        });
+
+      });
+    }
+
+
+  }
+
 
 }

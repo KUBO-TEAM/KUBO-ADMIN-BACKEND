@@ -1,12 +1,13 @@
 import { createReducer, on } from "@ngrx/store";
 import { RecipeModel } from "src/app/modules/recipe-crud/core/domain/recipe.model";
-import { singleRecipeFails, singleRecipeSuccess } from "./get-recipe-actions";
+import { singleRecipeFails, singleRecipeInProgress, singleRecipeSuccess } from "./get-recipe-actions";
 
 
 let GET_RECIPE_INITIAL_STATE : RecipeModel | undefined;
 
 const GET_RECIPE_REDUCER = createReducer(
   GET_RECIPE_INITIAL_STATE,
+  on(singleRecipeInProgress, (state) => undefined),
   on(singleRecipeSuccess, (state, {recipe})=> recipe),
   on(singleRecipeFails, (state) => state),
 );

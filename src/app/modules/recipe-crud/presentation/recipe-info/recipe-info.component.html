@@ -1,39 +1,42 @@
+
+<div class="flex flex-col items-center justify-center py-4 space-y-2 ">
+
+  <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
+
+    <div
+      id="recipe-picture"
+      [style.background-image]="'url('+ (imagePath$ | async) + ')'">
+    </div>
+
+  </ng-container>
+
+  <ng-container *ngIf="recipe?.displayPhoto">
+    <div
+      id="recipe-picture"
+      [style.background-image]="'url(' + recipe?.displayPhoto + ')'">
+    </div>
+  </ng-container>
+
+  <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
+
+  <app-button (click)="fileUploadElement.click()">
+    Select Image
+  </app-button>
+</div>
+
 <form [formGroup]="form" (ngSubmit)="submit()">
 
-  <div class="flex flex-col items-center justify-center py-4 space-y-2 ">
 
-    <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
-
-      <div
-        id="recipe-picture"
-        [style.background-image]="'url('+ (imagePath$ | async) + ')'">
-      </div>
-
-    </ng-container>
-
-    <ng-container *ngIf="recipe?.displayPhoto">
-      <div
-        id="recipe-picture"
-        [style.background-image]="'url(' + displayRecipePhoto(recipe?.displayPhoto) + ')'">
-      </div>
-    </ng-container>
-
-    <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
-
-    <app-button (click)="fileUploadElement.click()">
-      Select Image
-    </app-button>
-  </div>
-
-  <app-input placeholder="Name" formControlName='name' value="{{recipe?.name}}"></app-input>
-  <app-input placeholder="Description" formControlName='description' value="{{recipe?.description}}"></app-input>
-  <app-input placeholder="References" textArea formControlName='reference' value="{{recipe?.reference}}"></app-input>
+  <app-input placeholder="Name" formControlName='name'></app-input>
+  <app-input placeholder="Description" formControlName='description'></app-input>
+  <app-input placeholder="References" textArea formControlName='reference'></app-input>
 
   <ul class="my-4">
     <li *ngFor="let ingridient of ingredientList" class="mt-[12px]">
-      <app-checkbox>{{ingridient}}</app-checkbox>
+      <app-checkbox (change)="ingredientsListener($event)" [value]="ingridient"></app-checkbox>
     </li>
   </ul>
+
 
   <ng-content select="[submit]"></ng-content>
 

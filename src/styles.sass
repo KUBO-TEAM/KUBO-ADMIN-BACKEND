@@ -15,3 +15,9 @@ $my-theme: mat.define-light-theme( (color: ( primary: $my-primary, accent: $my-a
 
 @include mat.all-component-themes($my-theme)
 
+// Custom Styles for snackbars
+.snackbar-background
+  background: white
+  margin-top: 70px !important
+  @media screen and (min-width: 1024px)
+    margin-top: 10px !important

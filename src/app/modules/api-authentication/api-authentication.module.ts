@@ -1,17 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VerificationPageComponent } from './components/verification-page/verification-page.component';
-import { ApiAuthenticationRoutingModule } from './api-authentication-routing.module';
-import { SharedModule } from '../shared/shared.module';
-
+import { PresentationModule } from './presentation/presentation.module';
+import { CoreModule } from './core/core.module';
+import { DataModule } from './data/data.module';
 @NgModule({
-  declarations: [
-    VerificationPageComponent
-  ],
   imports: [
     CommonModule,
-    ApiAuthenticationRoutingModule,
-    SharedModule,
+    PresentationModule,
+    CoreModule,
+    DataModule,
   ]
 })
 export class ApiAuthenticationModule { }

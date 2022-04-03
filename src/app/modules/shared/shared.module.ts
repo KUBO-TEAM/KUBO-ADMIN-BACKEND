@@ -9,11 +9,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContainerComponent } from './components/container/container.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { FloatingButtonComponent } from './components/floating-button/floating-button.component';
 import {MatIconModule} from '@angular/material/icon';
 import { TypeofPipe } from './pipes/typeof.pipe';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 
 @NgModule({
@@ -23,8 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ButtonComponent,
     ContainerComponent,
     CheckboxComponent,
-    FloatingButtonComponent,
-    TypeofPipe
+    TypeofPipe,
+    SnackbarComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +36,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     RouterModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   exports: [
     HeaderComponent,
@@ -42,7 +44,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     ButtonComponent,
     ContainerComponent,
     CheckboxComponent,
-    FloatingButtonComponent,
     TypeofPipe
   ]
 })
