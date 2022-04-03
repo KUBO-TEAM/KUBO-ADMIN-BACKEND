@@ -12,7 +12,7 @@ import { RecipeService } from '../ngrx/recipe/recipe.service';
   templateUrl: './recipe-info.component.html',
   styleUrls: ['./recipe-info.component.sass']
 })
-export class RecipeInfoComponent implements OnInit, OnDestroy {
+export class RecipeInfoComponent implements OnDestroy, OnChanges {
 
   @Input('recipe') recipe: RecipeModel | null  = null;
 
@@ -52,6 +52,16 @@ export class RecipeInfoComponent implements OnInit, OnDestroy {
 
    }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.recipe){
+      this.form.patchValue({
+        name: this.recipe.name,
+        description: this.recipe.description,
+        reference: this.recipe.reference,
+      });
+    }
+  }
+
 
   ngOnDestroy(): void {
     this.recipeService.addRecipeInProgress({
@@ -60,26 +70,22 @@ export class RecipeInfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-    if(this.recipe){
-      this.form.patchValue({
-        name: this.recipe.name,
-        description: this.recipe.description,
-        reference: this.recipe.reference,
-      });
-    }else{
+  // ngOnInit(): void {
 
-      this.recipeInprogress$.pipe(take(1)).subscribe((recipe : any)=>{
+  //   if(this.recipe){
+  //   }else{
 
-        if(recipe){
-          this.form.patchValue({
-            ...recipe,
-          });
-        }
-      });
+  //     this.recipeInprogress$.pipe(take(1)).subscribe((recipe : any)=>{
 
-    }
-  }
+  //       if(recipe){
+  //         this.form.patchValue({
+  //           ...recipe,
+  //         });
+  //       }
+  //     });
+
+  //   }
+  // }
 
 
   fileChangeEvent(event: any) {

@@ -13,6 +13,9 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { SharedModule } from '../../shared/shared.module';
 import { NgrxModule } from './ngrx/ngrx.module';
 import { RouterModule } from '@angular/router';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -33,6 +36,9 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     NgrxModule,
     RouterModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatButtonModule,
   ],
 })
 export class PresentationModule { }

@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { ContainerComponent } from './components/container/container.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { FloatingButtonComponent } from './components/floating-button/floating-button.component';
 import {MatIconModule} from '@angular/material/icon';
 import { TypeofPipe } from './pipes/typeof.pipe';
 import { RouterModule } from '@angular/router';
@@ -25,7 +24,6 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     ButtonComponent,
     ContainerComponent,
     CheckboxComponent,
-    FloatingButtonComponent,
     TypeofPipe,
     SnackbarComponent
   ],
@@ -46,7 +44,6 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     ButtonComponent,
     ContainerComponent,
     CheckboxComponent,
-    FloatingButtonComponent,
     TypeofPipe
   ]
 })

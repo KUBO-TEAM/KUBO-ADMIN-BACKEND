@@ -5,7 +5,6 @@ import { RecipeEntity } from "./recipe-entity";
 export class RecipeRepositoryMapper extends Mapper<RecipeEntity, RecipeModel>{
 
   mapFrom(param: RecipeEntity): RecipeModel {
-
     return {
       _id: param._id,
       name: param.name,
