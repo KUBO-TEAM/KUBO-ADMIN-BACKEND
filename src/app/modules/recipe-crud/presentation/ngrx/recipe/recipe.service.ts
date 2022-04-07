@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { base64ToFile } from 'ngx-image-cropper';
+import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { SnackbarService } from 'src/app/modules/shared/services/snackbar.service';
 import { RecipeModel } from '../../../core/domain/recipe.model';
 import { AddRecipeUseCase } from '../../../core/usecases/add-recipe.usecase';
@@ -34,6 +35,7 @@ export class RecipeService {
     private store: Store<{}>,
     private route: Router,
     private _snackBarServices : SnackbarService,
+    private loadingService : LoadingService,
   ) { }
 
   private selectedRecipes : Array<RecipeModel> = [];
@@ -67,13 +69,19 @@ export class RecipeService {
       recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
       recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
 
+      this.store.dispatch(cropImageReset());
+      this.resetCacheRecipe();
+      this.route.navigate(['/overview']);
+
+      this.loadingService.toggleLoadingStatus();
+
+
       this.addRecipeUseCase.execute(recipeFormData).subscribe((response: { message: string })=> {
         const message = response.message;
 
+        this.loadingService.toggleLoadingStatus();
         this._snackBarServices.openDuratedSnackBar(message);
-        this.store.dispatch(cropImageReset());
-        this.resetCacheRecipe();
-        this.route.navigate(['/overview']);
+        this.getAllRecipe();
 
       });
     }
@@ -82,6 +90,8 @@ export class RecipeService {
 
   deleteRecipe() : void{
 
+    this.loadingService.toggleLoadingStatus();
+
     for(let recipe of this.selectedRecipes){
 
         if(recipe._id){
@@ -89,6 +99,8 @@ export class RecipeService {
               {
                 next: (v) => {
                   this.getAllRecipe();
+                  this.loadingService.toggleLoadingStatus();
+                  this._snackBarServices.openDuratedSnackBar(v.message);
                 },
                 error: (e) =>{
 
@@ -112,6 +124,12 @@ export class RecipeService {
       recipeFormData.append('reference', recipe.reference);
       recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
 
+      this.loadingService.toggleLoadingStatus();
+
+      this.store.dispatch(cropImageReset());
+      this.resetCacheRecipe();
+      this.route.navigate(['/overview']);
+
       if(recipe.displayPhoto){
         recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
       }
@@ -119,11 +137,9 @@ export class RecipeService {
       this.updateRecipeUseCase.execute({ form : recipeFormData, _id }).subscribe((response: { message: string })=> {
         const message = response.message;
 
+        this.getAllRecipe();
+        this.loadingService.toggleLoadingStatus();
         this._snackBarServices.openDuratedSnackBar(message);
-        this.store.dispatch(cropImageReset());
-        this.resetCacheRecipe();
-        this.route.navigate(['/overview']);
-
       });
 
     }

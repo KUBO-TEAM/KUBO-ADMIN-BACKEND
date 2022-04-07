@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
     RouterModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatProgressBarModule
   ],
   exports: [
     HeaderComponent,
