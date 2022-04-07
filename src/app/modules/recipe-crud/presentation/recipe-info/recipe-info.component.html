@@ -49,7 +49,7 @@
 
     <mat-form-field class="w-full" appearance="fill">
       <mat-label>Description</mat-label>
-      <input matInput [errorStateMatcher]="matcher" formControlName='description'>
+      <textarea matInput [errorStateMatcher]="matcher" formControlName='description' [rows]="5"></textarea>
       <mat-error *ngIf="form.get('description')?.hasError('required')">
         Description is <strong>required</strong>
       </mat-error>
@@ -57,7 +57,7 @@
 
     <mat-form-field class="w-full" appearance="fill">
       <mat-label>Reference</mat-label>
-      <input matInput [errorStateMatcher]="matcher" formControlName='reference'>
+      <textarea matInput [errorStateMatcher]="matcher" formControlName='reference' [rows]="5"></textarea>
       <mat-error *ngIf="form.get('reference')?.hasError('required')">
         Reference is <strong>required</strong>
       </mat-error>
