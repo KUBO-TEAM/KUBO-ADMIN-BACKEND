@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { RecipeModel } from '../../core/domain/recipe.model';
 import { cropImageReset } from '../ngrx/crop_image/crop_image.reducer';
 import { RecipeService } from '../ngrx/recipe/recipe.service';
@@ -20,7 +21,6 @@ export class RecipeUpdateComponent implements OnInit {
     private recipeService: RecipeService,
     private store: Store<{getRecipeReducer: RecipeModel}>,
   ) {
-    this.store.dispatch(cropImageReset());
     this.recipe$ = this.store.select('getRecipeReducer');
   }
 
@@ -31,6 +31,30 @@ export class RecipeUpdateComponent implements OnInit {
     if(recipe_id){
       this.recipeService.getRecipe(recipe_id);
     }
+  }
+
+
+  submit($event: {
+    recipeId? : string,
+    form : FormGroup,
+    imagePath$: Observable<string | null>,
+    ingredients: Array<string>
+  }): void {
+
+    const name = $event.form.get('name');
+    const description = $event.form.get('description');
+    const reference = $event.form.get('reference');
+
+    $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
+      this.recipeService.updateRecipe({
+          name: name?.value,
+          description: description?.value,
+          ingredients: $event.ingredients,
+          reference: reference?.value,
+          displayPhoto: imagePath,
+        }, $event.recipeId);
+    });
+
   }
 
 }

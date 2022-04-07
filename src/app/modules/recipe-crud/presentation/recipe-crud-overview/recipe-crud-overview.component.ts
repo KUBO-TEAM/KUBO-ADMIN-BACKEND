@@ -23,4 +23,8 @@ export class RecipeCrudOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.recipeService.getAllRecipe();
   }
+
+  deleteRecipe(): void{
+    this.recipeService.deleteRecipe();
+  }
 }

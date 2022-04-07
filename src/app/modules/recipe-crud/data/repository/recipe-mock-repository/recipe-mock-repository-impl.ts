@@ -8,11 +8,14 @@ import { RecipeMockRepositoryMapper } from "./recipe-mock-repository-mapper";
   providedIn: 'root'
 })
 export class RecipeMockRepositoryImpl extends RecipeRepository{
-
-  addRecipe(recipeFormData: FormData): Observable<{ message: string; }> {
+  updateRecipe(params: { form: FormData; _id: string; }): Observable<{ message: string; }> {
     throw new Error("Method not implemented.");
   }
   private mapper = new RecipeMockRepositoryMapper();
+
+  constructor(){
+    super();
+  }
 
   remoteMockData = {
     message : 'Successfully Fetch',
@@ -27,10 +30,14 @@ export class RecipeMockRepositoryImpl extends RecipeRepository{
     ]
   }
 
-
-  constructor(){
-    super();
+  addRecipe(recipeFormData: FormData): Observable<{ message: string; }> {
+    throw new Error("Method not implemented.");
   }
+
+  deleteRecipe(_id: string): Observable<{ message: string; }> {
+    throw new Error("Method not implemented.");
+  }
+
 
   getAllRecipes(): Observable<RecipeModel> {
     return from(this.remoteMockData.data)

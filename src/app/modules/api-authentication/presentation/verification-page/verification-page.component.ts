@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { ApiAuthenticationService } from '../api-authentication.service';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-verification-page',
@@ -16,10 +25,12 @@ export class VerificationPageComponent {
     private fb: FormBuilder,
   ) {
     this.form = fb.group({
-      email: [''],
-      password: ['']
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]]
     });
   }
+
+  matcher = new MyErrorStateMatcher();
 
   submit(){
     const email = this.form.get('email')?.value;

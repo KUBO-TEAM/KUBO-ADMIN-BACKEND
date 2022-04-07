@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgrxModule } from './ngrx/ngrx.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -20,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCheckboxModule,
     NgrxModule,
     ReactiveFormsModule,
+    MatInputModule
   ],
 })
 export class PresentationModule { }

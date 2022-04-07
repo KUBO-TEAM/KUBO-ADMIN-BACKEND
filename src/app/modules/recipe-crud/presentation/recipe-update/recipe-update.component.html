@@ -2,10 +2,10 @@
 
 <app-container>
 
-  <app-recipe-info [recipe]="recipe$ | async" ></app-recipe-info>
-
-  <app-button [expand]="true">
-    Update Recipe
-  </app-button>
+  <app-recipe-info [recipe]="recipe$ | async"  (onSubmit)="submit($event)" >
+    <app-button [expand]="true" submit>
+      Update Recipe
+    </app-button>
+  </app-recipe-info>
 
 </app-container>

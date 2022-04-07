@@ -1,7 +1,22 @@
 <section class=" flex items-center justify-center h-[92vh]">
   <form [formGroup]="form" class="w-[25%]" (ngSubmit)="submit()">
-    <app-input placeholder="Email" type='text' class="flex-1" formControlName='email'></app-input>
-    <app-input placeholder="Password" type='password' class="flex-1" formControlName='password'></app-input>
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [errorStateMatcher]="matcher" formControlName='email' class="flex-1" >
+      <mat-error *ngIf="form.get('email')?.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [errorStateMatcher]="matcher" formControlName='password' class="flex-1"  type="password">
+      <mat-error *ngIf="form.get('password')?.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
 
     <div class="flex justify-between items-center">
       <mat-checkbox class="example-margin">Remember Me</mat-checkbox>

@@ -1,44 +1,78 @@
 
-<div class="flex flex-col items-center justify-center py-4 space-y-2 ">
+<section class="flex space-x-10 py-10">
 
-  <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
+  <div class=" w-[500px] h-[500px] flex flex-col items-center justify-center" style="border:2px dashed #dae1e7; ">
+    <div class="flex flex-col justify-center  items-center ">
 
-    <div
-      id="recipe-picture"
-      [style.background-image]="'url('+ (imagePath$ | async) + ')'">
+      <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
+
+        <div
+          id="recipe-picture"
+          [style.background-image]="'url('+ (imagePath$ | async) + ')'">
+        </div>
+
+      </ng-container>
+
+      <ng-container *ngIf="recipe?.displayPhoto && ((imagePath$ | async) | typeof ) !== 'string'">
+        <div
+          id="recipe-picture"
+          [style.background-image]="'url(' + recipe?.displayPhoto + ')'">
+        </div>
+      </ng-container>
+
+      <div class="text-center">
+        <mat-icon class="text-[4rem] !h-full !w-full text-gray-300">cloud_upload</mat-icon>
+      </div>
+
+      <span class="text-lg text-gray-600">Drag and drop here to upload</span>
+
+      <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
+
+
+      <app-button (click)="fileUploadElement.click()" class="mt-4">
+        Or select Image
+      </app-button>
+
     </div>
-
-  </ng-container>
-
-  <ng-container *ngIf="recipe?.displayPhoto">
-    <div
-      id="recipe-picture"
-      [style.background-image]="'url(' + recipe?.displayPhoto + ')'">
-    </div>
-  </ng-container>
-
-  <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
-
-  <app-button (click)="fileUploadElement.click()">
-    Select Image
-  </app-button>
-</div>
-
-<form [formGroup]="form" (ngSubmit)="submit()">
+  </div>
 
 
-  <app-input placeholder="Name" formControlName='name'></app-input>
-  <app-input placeholder="Description" formControlName='description'></app-input>
-  <app-input placeholder="References" textArea formControlName='reference'></app-input>
+  <form class="flex flex-col justify-center flex-1" [formGroup]="form" (ngSubmit)="emitOnSubmit()">
 
-  <ul class="my-4">
-    <li *ngFor="let ingridient of ingredientList" class="mt-[12px]">
-      <app-checkbox (change)="ingredientsListener($event)" [value]="ingridient"></app-checkbox>
-    </li>
-  </ul>
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput [errorStateMatcher]="matcher" formControlName='name'>
+      <mat-error *ngIf="form.get('name')?.hasError('required')">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Description</mat-label>
+      <input matInput [errorStateMatcher]="matcher" formControlName='description'>
+      <mat-error *ngIf="form.get('description')?.hasError('required')">
+        Description is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Reference</mat-label>
+      <input matInput [errorStateMatcher]="matcher" formControlName='reference'>
+      <mat-error *ngIf="form.get('reference')?.hasError('required')">
+        Reference is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <ul class="my-4 flex flex-wrap  ">
+      <li *ngFor="let ingredient of ingredientList" class="mt-[12px] flex-[0_0_20%]">
+        <mat-checkbox (change)="ingredientsListener(ingredient)" [checked]="ingredients.isSelected(ingredient)">{{ingredient}}</mat-checkbox>
+      </li>
+    </ul>
 
 
-  <ng-content select="[submit]"></ng-content>
+    <ng-content select="[submit]"></ng-content>
 
-</form>
+  </form>
+
+</section>
 

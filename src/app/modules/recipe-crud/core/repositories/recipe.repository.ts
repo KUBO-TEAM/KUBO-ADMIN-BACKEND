@@ -7,4 +7,7 @@ export abstract class RecipeRepository{
   abstract getRecipe(_id: string) : Observable<RecipeModel>;
 
   abstract addRecipe(recipeFormData: FormData) : Observable<{message : string}>;
+  abstract deleteRecipe(_id: string) : Observable<{message: string}>;
+
+  abstract updateRecipe(params: { form: FormData, _id : string}) : Observable<{message: string}>;
 }

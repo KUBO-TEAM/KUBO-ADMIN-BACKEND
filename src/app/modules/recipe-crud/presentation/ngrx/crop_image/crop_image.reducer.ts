@@ -15,7 +15,7 @@ export const cropImage = createAction(
 
 export const cropImageSuccess = createAction(
   '[Crop Image] Success',
-  props<{ imagePath : string | null  }>(),
+  props<{ imagePath : Blob  }>(),
 )
 
 

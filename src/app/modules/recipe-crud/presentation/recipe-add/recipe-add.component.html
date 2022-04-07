@@ -2,7 +2,7 @@
 
 <app-container>
 
-  <app-recipe-info>
+  <app-recipe-info (onSubmit)="submit($event)">
     <app-button [expand]="true" submit>
       Create Recipe
     </app-button>

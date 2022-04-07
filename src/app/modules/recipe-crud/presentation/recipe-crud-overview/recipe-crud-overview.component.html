@@ -1,23 +1,17 @@
 <app-header></app-header>
 
 <app-container class="flex flex-col" >
-  <h1>Recipe Table</h1>
+  <h1 class="text-2xl text-gray-700">List of Recipes</h1>
 
   <div class="bottom-4 right-4 !fixed z-50 space-x-2">
-    <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+    <button mat-fab color="primary" aria-label="Example icon button with a delete icon" routerLink="add">
       <mat-icon>add</mat-icon>
     </button>
-    <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+    <button mat-fab color="primary" aria-label="Example icon button with a delete icon" (click)="deleteRecipe()">
       <mat-icon>delete</mat-icon>
     </button>
 
   </div>
 
-
-
-  <ng-container *ngIf="(recipes$ | async) as recipes">
-    <ng-container *ngIf="recipes.length != 0">
-      <app-recipe-table  [recipes]="recipes"></app-recipe-table>
-    </ng-container>
-  </ng-container>
+  <app-recipe-table  [recipes]="(recipes$ | async)"></app-recipe-table>
 </app-container>

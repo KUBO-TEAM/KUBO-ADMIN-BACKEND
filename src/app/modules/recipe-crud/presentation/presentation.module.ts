@@ -16,7 +16,8 @@ import { RouterModule } from '@angular/router';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatPaginatorModule,
     MatSortModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule
   ],
 })
 export class PresentationModule { }

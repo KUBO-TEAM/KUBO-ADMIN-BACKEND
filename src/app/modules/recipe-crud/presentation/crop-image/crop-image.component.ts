@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { ImageCroppedEvent, LoadedImage } from 'ngx-image-cropper';
 import { Observable } from 'rxjs';
 import { cropImageSuccess } from '../ngrx/crop_image/crop_image.reducer';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-crop-image',
@@ -16,7 +17,7 @@ export class CropImageComponent implements OnInit {
   croppedImage: any = '';
 
   constructor(
-    private readonly router: Router,
+    private location : Location,
     private readonly store: Store<{
       cropImageReducer: Event,
     }>,
@@ -35,7 +36,7 @@ export class CropImageComponent implements OnInit {
   sendCroppedImage(){
 
     this.store.dispatch(cropImageSuccess({imagePath: this.croppedImage}));
-    this.router.navigate(['/overview/add']);
+    this.location.back();
   }
 
   imageLoaded() {

@@ -27,6 +27,11 @@ export class ApiAuthenticationService {
     }
   }
 
+  /** Get user token */
+  userToken() : string | null {
+    return localStorage.getItem('userToken');
+  }
+
   /** Login User */
   loginUser(params: {email: string, password: string}) : void{
     this.loginUserUseCase.execute(params).subscribe({
