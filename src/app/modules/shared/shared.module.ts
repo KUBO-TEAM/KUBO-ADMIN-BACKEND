@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     ButtonComponent,
     ContainerComponent,
     TypeofPipe,
-    SnackbarComponent
+    SnackbarComponent,
+    TruncatePipe
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     HeaderComponent,
     ButtonComponent,
     ContainerComponent,
-    TypeofPipe
+    TypeofPipe,
+    TruncatePipe
   ]
 })
 export class SharedModule { }
