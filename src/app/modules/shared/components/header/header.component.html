@@ -1,12 +1,18 @@
 
+
+
 <mat-toolbar color="primary">
-  <span class="cursor-pointer" routerLink="/overview">KUBO API</span>
-  <span class="flex-auto"></span>
-  <button mat-icon-button (click)="logout()">
-    <mat-icon>logout</mat-icon>
-  </button>
+    <section class="container mx-auto flex justify-between">
+      <span class="cursor-pointer" routerLink="/overview">KUBO API</span>
+      <span class="flex-auto"></span>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+
+      <ng-container *ngIf="loadingService.loadingStatus">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-container>
+
+  </section>
 </mat-toolbar>
 
-<ng-container *ngIf="loadingService.loadingStatus">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-</ng-container>

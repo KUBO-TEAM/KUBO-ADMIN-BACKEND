@@ -3,6 +3,6 @@ export interface RecipeEntity{
   name: string,
   description: string,
   reference: string,
-  ingredients: string[],
+  categories: Array<string>,
   displayPhoto?: string;
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Observable, take } from 'rxjs';
 import { RecipeService } from '../ngrx/recipe/recipe.service';
 @Component({
@@ -16,24 +16,29 @@ export class RecipeAddComponent {
   submit($event: {
       form : FormGroup,
       imagePath$: Observable<string | null>,
-      ingredients: Array<string>
+      categories: Array<string>
   }): void {
 
     const name = $event.form.get('name');
     const description = $event.form.get('description');
     const reference = $event.form.get('reference');
 
-    $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
-      this.recipeService.addRecipe(
-        {
-          name: name?.value,
-          description: description?.value,
-          ingredients: $event.ingredients,
-          reference: reference?.value,
-          displayPhoto: imagePath,
-        }
-      );
-    });
+    const ingredients = $event.form.controls['ingredients'] as FormArray;
+    const instructions = $event.form.controls['instructions'] as FormArray;
+
+    console.log(instructions.getRawValue());
+
+    // $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
+    //   this.recipeService.addRecipe(
+    //     {
+    //       name: name?.value,
+    //       description: description?.value,
+    //       categories: $event.categories,
+    //       reference: reference?.value,
+    //       displayPhoto: imagePath,
+    //     }
+    //   );
+    // });
 
   }
 

@@ -18,7 +18,7 @@ import { singleRecipeSuccess } from './get-recipe/get-recipe-actions';
 
 interface CachedRecipe{
   form: FormGroup,
-  ingredients: Array<string>,
+  categories: Array<string>,
 }
 
 @Injectable({
@@ -42,6 +42,8 @@ export class RecipeService {
   private cachedRecipe : CachedRecipe | undefined;
 
   getAllRecipe(){
+    console.log('test');
+
     this.store.dispatch(recipeFetchInProgress());
 
     this.getAllRecipeUsecase.execute().subscribe((value: RecipeModel)=>{
@@ -60,31 +62,29 @@ export class RecipeService {
   ){
 
 
-    if(recipe.displayPhoto){
-      const recipeFormData = new FormData();
+    // if(recipe.displayPhoto){
+    //   const recipeFormData = new FormData();
 
-      recipeFormData.append('name', recipe.name);
-      recipeFormData.append('description', recipe.description);
-      recipeFormData.append('reference', recipe.reference);
-      recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
-      recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
+    //   recipeFormData.append('name', recipe.name);
+    //   recipeFormData.append('description', recipe.description);
+    //   recipeFormData.append('reference', recipe.reference);
+    //   recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
+    //   recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
 
-      this.store.dispatch(cropImageReset());
-      this.resetCacheRecipe();
-      this.route.navigate(['/overview']);
+    //   this.store.dispatch(cropImageReset());
+    //   this.resetCacheRecipe();
+    //   this.route.navigate(['/overview']);
 
-      this.loadingService.toggleLoadingStatus();
+    //   this.loadingService.toggleLoadingStatus();
 
 
-      this.addRecipeUseCase.execute(recipeFormData).subscribe((response: { message: string })=> {
-        const message = response.message;
+    //   this.addRecipeUseCase.execute(recipeFormData).subscribe((response: { message: string })=> {
+    //     const message = response.message;
 
-        this.loadingService.toggleLoadingStatus();
-        this._snackBarServices.openDuratedSnackBar(message);
-        this.getAllRecipe();
-
-      });
-    }
+    //     this.loadingService.toggleLoadingStatus();
+    //     this._snackBarServices.openDuratedSnackBar(message);
+    //   });
+    // }
 
   }
 
@@ -118,31 +118,30 @@ export class RecipeService {
     const recipeFormData = new FormData();
 
 
-    if( _id){
-      recipeFormData.append('name', recipe.name);
-      recipeFormData.append('description', recipe.description);
-      recipeFormData.append('reference', recipe.reference);
-      recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
+    // if( _id){
+    //   recipeFormData.append('name', recipe.name);
+    //   recipeFormData.append('description', recipe.description);
+    //   recipeFormData.append('reference', recipe.reference);
+    //   recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
 
-      this.loadingService.toggleLoadingStatus();
+    //   this.loadingService.toggleLoadingStatus();
 
-      this.store.dispatch(cropImageReset());
-      this.resetCacheRecipe();
-      this.route.navigate(['/overview']);
+    //   this.store.dispatch(cropImageReset());
+    //   this.resetCacheRecipe();
+    //   this.route.navigate(['/overview']);
 
-      if(recipe.displayPhoto){
-        recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
-      }
+    //   if(recipe.displayPhoto){
+    //     recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
+    //   }
 
-      this.updateRecipeUseCase.execute({ form : recipeFormData, _id }).subscribe((response: { message: string })=> {
-        const message = response.message;
+    //   this.updateRecipeUseCase.execute({ form : recipeFormData, _id }).subscribe((response: { message: string })=> {
+    //     const message = response.message;
 
-        this.getAllRecipe();
-        this.loadingService.toggleLoadingStatus();
-        this._snackBarServices.openDuratedSnackBar(message);
-      });
+    //     this.loadingService.toggleLoadingStatus();
+    //     this._snackBarServices.openDuratedSnackBar(message);
+    //   });
 
-    }
+    // }
   }
 
   updateSelectedRecipes(param: Array<RecipeModel>): void {

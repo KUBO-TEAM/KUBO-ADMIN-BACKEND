@@ -10,7 +10,7 @@ export class RecipeRepositoryMapper extends Mapper<RecipeEntity, RecipeModel>{
       name: param.name,
       description: param.description,
       reference: param.reference,
-      ingredients: param.ingredients,
+      categories: param.categories,
       displayPhoto: param.displayPhoto,
     }
   }
@@ -20,7 +20,7 @@ export class RecipeRepositoryMapper extends Mapper<RecipeEntity, RecipeModel>{
       name: param.name,
       description: param.description,
       reference: param.reference,
-      ingredients: param.ingredients,
+      categories: param.categories,
       displayPhoto: param.displayPhoto,
     }
   }

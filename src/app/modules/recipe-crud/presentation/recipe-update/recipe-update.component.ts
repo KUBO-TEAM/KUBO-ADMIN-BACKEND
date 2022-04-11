@@ -38,7 +38,7 @@ export class RecipeUpdateComponent implements OnInit {
     recipeId? : string,
     form : FormGroup,
     imagePath$: Observable<string | null>,
-    ingredients: Array<string>
+    categories: Array<string>
   }): void {
 
     const name = $event.form.get('name');
@@ -49,7 +49,7 @@ export class RecipeUpdateComponent implements OnInit {
       this.recipeService.updateRecipe({
           name: name?.value,
           description: description?.value,
-          ingredients: $event.ingredients,
+          categories: $event.categories,
           reference: reference?.value,
           displayPhoto: imagePath,
         }, $event.recipeId);
