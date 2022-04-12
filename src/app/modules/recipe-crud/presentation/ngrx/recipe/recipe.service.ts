@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { base64ToFile } from 'ngx-image-cropper';
@@ -58,33 +58,62 @@ export class RecipeService {
   }
 
   addRecipe(
-    recipe: RecipeModel
+    {form, categories, imagePath}: {
+      form : FormGroup,
+      categories: Array<string>,
+      imagePath: string,
+    }
   ){
 
-
-    // if(recipe.displayPhoto){
-    //   const recipeFormData = new FormData();
-
-    //   recipeFormData.append('name', recipe.name);
-    //   recipeFormData.append('description', recipe.description);
-    //   recipeFormData.append('reference', recipe.reference);
-    //   recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
-    //   recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
-
-    //   this.store.dispatch(cropImageReset());
-    //   this.resetCacheRecipe();
-    //   this.route.navigate(['/overview']);
-
-    //   this.loadingService.toggleLoadingStatus();
+    const {
+      name,
+      description,
+      reference,
+      course,
+      cuisine,
+      prep_time,
+      cook_time,
+      servings
+    } = form.controls;
 
 
-    //   this.addRecipeUseCase.execute(recipeFormData).subscribe((response: { message: string })=> {
-    //     const message = response.message;
+    if(imagePath){
+      const formData = new FormData();
 
-    //     this.loadingService.toggleLoadingStatus();
-    //     this._snackBarServices.openDuratedSnackBar(message);
-    //   });
-    // }
+      formData.append('name', name.value);
+      formData.append('description', description.value);
+      formData.append('reference', reference.value);
+      formData.append('course', course.value);
+      formData.append('cuisine', cuisine.value);
+      formData.append('prep_time', prep_time.value);
+      formData.append('cook_time', cook_time.value);
+      formData.append('servings', servings.value);
+      formData.append('categories', JSON.stringify(categories));
+      formData.append('displayPhoto', base64ToFile(imagePath));
+
+
+      const ingredients = form.controls['ingredients'] as FormArray;
+      const instructions = form.controls['instructions'] as FormArray;
+
+      formData.append('ingredients', JSON.stringify(ingredients.getRawValue()));
+      formData.append('instructions', JSON.stringify(instructions.getRawValue()));
+
+      this.store.dispatch(cropImageReset());
+      this.resetCacheRecipe();
+      this.route.navigate(['/overview']);
+
+      this.loadingService.toggleLoadingStatus();
+
+
+      this.addRecipeUseCase.execute(formData).subscribe((response: { message: string })=> {
+        const message = response.message;
+
+        this.loadingService.toggleLoadingStatus();
+        this._snackBarServices.openDuratedSnackBar(message);
+      });
+    }else{
+      this._snackBarServices.openDuratedSnackBar('Please pick an image');
+    }
 
   }
 
@@ -113,35 +142,70 @@ export class RecipeService {
 
   }
 
-  updateRecipe(recipe : RecipeModel, _id? : string): void {
+  updateRecipe({
+    _id,
+    form,
+    imagePath,
+    categories,
+  } : {
+    _id ?: string,
+    form : FormGroup,
+    imagePath : string,
+    categories: Array<string>,
+  }): void {
 
-    const recipeFormData = new FormData();
+
+    const {
+      name,
+      description,
+      reference,
+      course,
+      cuisine,
+      prep_time,
+      cook_time,
+      servings
+    } = form.controls;
+
+    if(_id){
+
+      const formData = new FormData();
+
+      formData.append('name', name.value);
+      formData.append('description', description.value);
+      formData.append('reference', reference.value);
+      formData.append('course', course.value);
+      formData.append('cuisine', cuisine.value);
+      formData.append('prep_time', prep_time.value);
+      formData.append('cook_time', cook_time.value);
+      formData.append('servings', servings.value);
+      formData.append('categories', JSON.stringify(categories));
+
+      if(imagePath)
+        formData.append('displayPhoto', base64ToFile(imagePath));
 
 
-    // if( _id){
-    //   recipeFormData.append('name', recipe.name);
-    //   recipeFormData.append('description', recipe.description);
-    //   recipeFormData.append('reference', recipe.reference);
-    //   recipeFormData.append('ingredients', JSON.stringify(recipe.ingredients));
+      const ingredients = form.controls['ingredients'] as FormArray;
+      const instructions = form.controls['instructions'] as FormArray;
 
-    //   this.loadingService.toggleLoadingStatus();
+      formData.append('ingredients', JSON.stringify(ingredients.getRawValue()));
+      formData.append('instructions', JSON.stringify(instructions.getRawValue()));
 
-    //   this.store.dispatch(cropImageReset());
-    //   this.resetCacheRecipe();
-    //   this.route.navigate(['/overview']);
+      this.loadingService.toggleLoadingStatus();
+      this.store.dispatch(cropImageReset());
+      this.resetCacheRecipe();
+      this.route.navigate(['/overview']);
 
-    //   if(recipe.displayPhoto){
-    //     recipeFormData.append('displayPhoto', base64ToFile(recipe.displayPhoto));
-    //   }
+      this.updateRecipeUseCase.execute({ form : formData, _id }).subscribe((response: { message: string })=> {
+        const message = response.message;
 
-    //   this.updateRecipeUseCase.execute({ form : recipeFormData, _id }).subscribe((response: { message: string })=> {
-    //     const message = response.message;
+        this.loadingService.toggleLoadingStatus();
+        this._snackBarServices.openDuratedSnackBar(message);
 
-    //     this.loadingService.toggleLoadingStatus();
-    //     this._snackBarServices.openDuratedSnackBar(message);
-    //   });
+      });
 
-    // }
+    }else {
+      this._snackBarServices.openDuratedSnackBar('Error updating, cannot find the id');
+    }
   }
 
   updateSelectedRecipes(param: Array<RecipeModel>): void {

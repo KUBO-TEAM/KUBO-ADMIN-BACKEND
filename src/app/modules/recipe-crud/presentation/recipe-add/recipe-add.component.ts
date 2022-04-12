@@ -19,26 +19,15 @@ export class RecipeAddComponent {
       categories: Array<string>
   }): void {
 
-    const name = $event.form.get('name');
-    const description = $event.form.get('description');
-    const reference = $event.form.get('reference');
-
-    const ingredients = $event.form.controls['ingredients'] as FormArray;
-    const instructions = $event.form.controls['instructions'] as FormArray;
-
-    console.log(instructions.getRawValue());
-
-    // $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
-    //   this.recipeService.addRecipe(
-    //     {
-    //       name: name?.value,
-    //       description: description?.value,
-    //       categories: $event.categories,
-    //       reference: reference?.value,
-    //       displayPhoto: imagePath,
-    //     }
-    //   );
-    // });
+    $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
+      this.recipeService.addRecipe(
+        {
+          form: $event.form,
+          categories: $event.categories,
+          imagePath,
+        }
+      );
+    });
 
   }
 

@@ -40,21 +40,14 @@ export class RecipeUpdateComponent implements OnInit {
     imagePath$: Observable<string | null>,
     categories: Array<string>
   }): void {
-
-    const name = $event.form.get('name');
-    const description = $event.form.get('description');
-    const reference = $event.form.get('reference');
-
     $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
       this.recipeService.updateRecipe({
-          name: name?.value,
-          description: description?.value,
-          categories: $event.categories,
-          reference: reference?.value,
-          displayPhoto: imagePath,
-        }, $event.recipeId);
+        _id: $event.recipeId,
+        form: $event.form,
+        imagePath,
+        categories: $event.categories,
+      });
     });
-
   }
 
 }

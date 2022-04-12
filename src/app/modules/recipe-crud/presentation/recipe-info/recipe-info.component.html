@@ -1,43 +1,48 @@
 
-<section class="flex space-x-10 py-10">
+<section class="flex space-x-10">
 
-  <div class=" w-[500px] h-[500px] flex flex-col items-center justify-center sticky top-0" style="border:2px dashed #dae1e7; ">
-    <div class="flex flex-col justify-center  items-center ">
+  <section class=" h-fit sticky top-0 py-10" >
 
-      <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
+    <div class="flex flex-col items-center justify-center  w-[500px] h-[500px] " style="border:2px dashed #dae1e7; ">
+      <div class="flex flex-col justify-center items-center ">
 
-        <div
-          id="recipe-picture"
-          [style.background-image]="'url('+ (imagePath$ | async) + ')'">
+        <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
+
+          <div
+            id="recipe-picture"
+            [style.background-image]="'url('+ (imagePath$ | async) + ')'">
+          </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="recipe?.displayPhoto && ((imagePath$ | async) | typeof ) !== 'string'">
+          <div
+            id="recipe-picture"
+            [style.background-image]="'url(' + recipe?.displayPhoto + ')'">
+          </div>
+        </ng-container>
+
+        <div class="text-center">
+          <mat-icon class="text-[4rem] !h-full !w-full text-gray-300">cloud_upload</mat-icon>
         </div>
 
-      </ng-container>
+        <span class="text-lg text-gray-600">Drag and drop here to upload</span>
 
-      <ng-container *ngIf="recipe?.displayPhoto && ((imagePath$ | async) | typeof ) !== 'string'">
-        <div
-          id="recipe-picture"
-          [style.background-image]="'url(' + recipe?.displayPhoto + ')'">
-        </div>
-      </ng-container>
+        <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
 
-      <div class="text-center">
-        <mat-icon class="text-[4rem] !h-full !w-full text-gray-300">cloud_upload</mat-icon>
+
+        <app-button (click)="fileUploadElement.click()" class="mt-4">
+          Or select Image
+        </app-button>
+
       </div>
-
-      <span class="text-lg text-gray-600">Drag and drop here to upload</span>
-
-      <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
-
-
-      <app-button (click)="fileUploadElement.click()" class="mt-4">
-        Or select Image
-      </app-button>
-
     </div>
-  </div>
 
 
-  <form class="flex flex-col justify-center flex-1 overflow-y-auto " [formGroup]="form" (ngSubmit)="emitOnSubmit()">
+  </section>
+
+
+  <form class="flex flex-col justify-center flex-1 overflow-y-auto py-10" [formGroup]="form" (ngSubmit)="emitOnSubmit()">
 
     <mat-form-field class="w-full" appearance="fill">
       <mat-label>Name</mat-label>
@@ -62,6 +67,60 @@
         Reference is <strong>required</strong>
       </mat-error>
     </mat-form-field>
+
+
+
+    <div class="flex space-x-4">
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Course</mat-label>
+        <input matInput [errorStateMatcher]="matcher" formControlName='course'>
+        <mat-error *ngIf="form.get('course')?.hasError('required')">
+          Course is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Cuisine</mat-label>
+        <input matInput [errorStateMatcher]="matcher" formControlName='cuisine'>
+        <mat-error *ngIf="form.get('cuisine')?.hasError('required')">
+          Cuisine is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
+    <div class="flex space-x-4">
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Preparation Time</mat-label>
+        <input matInput type="number" [errorStateMatcher]="matcher" formControlName='prep_time'>
+        <mat-error *ngIf="form.get('prep_time')?.hasError('required')">
+          Preparation Time is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Cook Time</mat-label>
+        <input matInput type="number" [errorStateMatcher]="matcher" formControlName='cook_time'>
+        <mat-error *ngIf="form.get('cook_time')?.hasError('required')">
+          Cook Time is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Servings</mat-label>
+        <input matInput type="number" [errorStateMatcher]="matcher" formControlName='servings'>
+        <mat-error *ngIf="form.get('servings')?.hasError('required')">
+          Servings is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+
 
     <label class="text-2xl font-bold text-gray-600 mt-2">Categories</label>
 

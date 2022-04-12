@@ -67,6 +67,11 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
 
     this.form = this._fb.group({
       name: ['', [Validators.required] ],
+      course: ['', [Validators.required] ],
+      cuisine: ['', [Validators.required] ],
+      prep_time: [null, [Validators.required] ],
+      cook_time: [null, [Validators.required] ],
+      servings: [null, [Validators.required] ],
       description: ['', [Validators.required] ],
       reference: ['', [Validators.required] ],
       ingredients: this._fb.array([
@@ -94,12 +99,43 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(this.recipe){
       this.form.patchValue({
-        name: this.recipe.name,
-        description: this.recipe.description,
-        reference: this.recipe.reference,
+        ...this.recipe
       });
 
-      this.ingredients.clear();
+      const instructions = this.form.controls['instructions'] as FormArray;
+      const ingredients = this.form.controls['ingredients'] as FormArray;
+
+      /** Patch Instructions */
+      if(this.recipe.instructions.length > 0){
+
+        instructions.clear();
+
+        for(let instruction of this.recipe.instructions){
+          instructions.push(
+            this._fb.control(instruction, [Validators.required])
+          );
+        }
+
+      }
+
+      /** Patch Ingredients */
+      if(this.recipe.ingredients.length > 0){
+
+        ingredients.clear();
+
+        for(let ingredient of this.recipe.ingredients){
+          ingredients.push(
+            this._fb.group({
+              quantity: [ingredient.quantity,  [Validators.required]],
+              ingredient: [ingredient.ingredient,  [Validators.required]],
+            })
+          );
+
+        }
+      }
+
+
+      this.categories.clear();
       this.categories.select(...this.recipe.categories);
     }
   }
