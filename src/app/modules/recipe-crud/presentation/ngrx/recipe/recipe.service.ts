@@ -110,6 +110,8 @@ export class RecipeService {
 
         this.loadingService.toggleLoadingStatus();
         this._snackBarServices.openDuratedSnackBar(message);
+        this.getAllRecipe();
+
       });
     }else{
       this._snackBarServices.openDuratedSnackBar('Please pick an image');
@@ -132,7 +134,8 @@ export class RecipeService {
                   this._snackBarServices.openDuratedSnackBar(v.message);
                 },
                 error: (e) =>{
-
+                  this.loadingService.toggleLoadingStatus();
+                  this._snackBarServices.openDuratedSnackBar(e.message);
                 }
               }
             )
@@ -200,6 +203,7 @@ export class RecipeService {
 
         this.loadingService.toggleLoadingStatus();
         this._snackBarServices.openDuratedSnackBar(message);
+        this.getAllRecipe();
 
       });
 
