@@ -51,4 +51,8 @@ export class CropImageComponent {
       // show message
   }
 
+  cancel(){
+    this.location.back();
+  }
+
 }
