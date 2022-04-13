@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { RecipeModel } from '../../core/domain/recipe.model';
-import { cropImage } from '../ngrx/crop_image/crop_image.reducer';
+import { cropImage, CropImageState } from '../ngrx/crop_image/crop_image.reducer';
 import { RecipeService } from '../ngrx/recipe/recipe.service';
 
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
@@ -31,11 +31,11 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
   @Output('onSubmit') onSubmit = new EventEmitter<{
     recipeId ?: string,
     form : FormGroup,
-    imagePath$ : Observable<string | null>,
+    imagePath$ : Observable<CropImageState>,
     categories: Array<string>,
   }>();
 
-  imagePath$ : Observable<string | null>;
+  imagePath$ : Observable<CropImageState>;
   recipeInprogress$ : Observable<RecipeModel | undefined>;
   form : FormGroup;
 
@@ -59,7 +59,7 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
   constructor(
     private _fb: FormBuilder,
     private router : Router,
-    private store : Store<{ cropImageReducer : string | null, addRecipeReducer: RecipeModel | undefined }>,
+    private store : Store<{ cropImageReducer : CropImageState, addRecipeReducer: RecipeModel | undefined }>,
     private recipeService: RecipeService,
   ) {
     this.imagePath$ = this.store.select('cropImageReducer');

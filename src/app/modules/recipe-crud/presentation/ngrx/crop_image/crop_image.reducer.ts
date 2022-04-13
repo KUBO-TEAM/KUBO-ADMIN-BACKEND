@@ -1,8 +1,9 @@
 import { createReducer, on, createAction, props } from "@ngrx/store";
 
 
+export type CropImageState = Event | string | null | undefined;
 
-const CROP_IMAGE_INITIAL_STATE : any = null;
+let CROP_IMAGE_INITIAL_STATE : CropImageState;
 
 export const cropImageReset = createAction(
   '[Crop Image] Reset'
@@ -10,12 +11,12 @@ export const cropImageReset = createAction(
 
 export const cropImage = createAction(
   '[Crop Image]',
-  props<{event : Event  }>(),
+  props<{event : Event }>(),
 )
 
 export const cropImageSuccess = createAction(
   '[Crop Image] Success',
-  props<{ imagePath : Blob  }>(),
+  props<{ imagePath : string }>(),
 )
 
 

@@ -35,6 +35,15 @@ export class RecipeTableComponent implements AfterViewInit, OnChanges {
     private recipeServices: RecipeService,
   ){}
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if(this.recipes){
       this.dataSource.data = this.recipes

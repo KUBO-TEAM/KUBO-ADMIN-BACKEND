@@ -12,7 +12,7 @@ import { DeleteRecipeUseCase } from '../../../core/usecases/delete-recipe.usecas
 import { GetAllRecipesUsecase } from '../../../core/usecases/get-all-recipes.usecase';
 import { GetRecipeUseCase } from '../../../core/usecases/get-recipe-usecase';
 import { UpdateRecipeUseCase } from '../../../core/usecases/update-recipe.usecase';
-import { cropImageReset } from '../crop_image/crop_image.reducer';
+import { cropImageReset, CropImageState } from '../crop_image/crop_image.reducer';
 import { recipeFetchInProgress, recipeFetchSuccess } from './get-all-recipes/get-all-recipe-actions';
 import { singleRecipeSuccess } from './get-recipe/get-recipe-actions';
 
@@ -61,7 +61,7 @@ export class RecipeService {
     {form, categories, imagePath}: {
       form : FormGroup,
       categories: Array<string>,
-      imagePath: string,
+      imagePath: CropImageState,
     }
   ){
 
@@ -76,46 +76,57 @@ export class RecipeService {
       servings
     } = form.controls;
 
-
-    if(imagePath){
-      const formData = new FormData();
-
-      formData.append('name', name.value);
-      formData.append('description', description.value);
-      formData.append('reference', reference.value);
-      formData.append('course', course.value);
-      formData.append('cuisine', cuisine.value);
-      formData.append('prep_time', prep_time.value);
-      formData.append('cook_time', cook_time.value);
-      formData.append('servings', servings.value);
-      formData.append('categories', JSON.stringify(categories));
-      formData.append('displayPhoto', base64ToFile(imagePath));
+    if(form.invalid){
+      this._snackBarServices.openDuratedSnackBar('Invalid inputs, double check your inputs');
+      return;
+    }
 
 
-      const ingredients = form.controls['ingredients'] as FormArray;
-      const instructions = form.controls['instructions'] as FormArray;
+    if(categories.length <= 0){
+      this._snackBarServices.openDuratedSnackBar('Please pick a category');
+      return;
+    }
 
-      formData.append('ingredients', JSON.stringify(ingredients.getRawValue()));
-      formData.append('instructions', JSON.stringify(instructions.getRawValue()));
+    if(typeof imagePath !== 'string'){
+      this._snackBarServices.openDuratedSnackBar('Please pick an image');
+      return;
+    }
 
-      this.store.dispatch(cropImageReset());
-      this.resetCacheRecipe();
-      this.route.navigate(['/overview']);
+    const formData = new FormData();
+
+    formData.append('name', name.value);
+    formData.append('description', description.value);
+    formData.append('reference', reference.value);
+    formData.append('course', course.value);
+    formData.append('cuisine', cuisine.value);
+    formData.append('prep_time', prep_time.value);
+    formData.append('cook_time', cook_time.value);
+    formData.append('servings', servings.value);
+    formData.append('categories', JSON.stringify(categories));
+    formData.append('displayPhoto', base64ToFile(imagePath));
+
+
+    const ingredients = form.controls['ingredients'] as FormArray;
+    const instructions = form.controls['instructions'] as FormArray;
+
+    formData.append('ingredients', JSON.stringify(ingredients.getRawValue()));
+    formData.append('instructions', JSON.stringify(instructions.getRawValue()));
+
+    this.store.dispatch(cropImageReset());
+    this.resetCacheRecipe();
+    this.route.navigate(['/overview']);
+
+    this.loadingService.toggleLoadingStatus();
+
+
+    this.addRecipeUseCase.execute(formData).subscribe((response: { message: string })=> {
+      const message = response.message;
 
       this.loadingService.toggleLoadingStatus();
+      this._snackBarServices.openDuratedSnackBar(message);
+      this.getAllRecipe();
 
-
-      this.addRecipeUseCase.execute(formData).subscribe((response: { message: string })=> {
-        const message = response.message;
-
-        this.loadingService.toggleLoadingStatus();
-        this._snackBarServices.openDuratedSnackBar(message);
-        this.getAllRecipe();
-
-      });
-    }else{
-      this._snackBarServices.openDuratedSnackBar('Please pick an image');
-    }
+    });
 
   }
 
@@ -153,7 +164,7 @@ export class RecipeService {
   } : {
     _id ?: string,
     form : FormGroup,
-    imagePath : string,
+    imagePath : CropImageState,
     categories: Array<string>,
   }): void {
 
@@ -169,47 +180,52 @@ export class RecipeService {
       servings
     } = form.controls;
 
-    if(_id){
+    if(form.invalid){
+      this._snackBarServices.openDuratedSnackBar('Invalid inputs, double check your inputs');
+      return;
+    }
 
-      const formData = new FormData();
+    if(typeof _id !== 'string'){
+      this._snackBarServices.openDuratedSnackBar('Error updating, cannot find the id');
+      return;
+    }
 
-      formData.append('name', name.value);
-      formData.append('description', description.value);
-      formData.append('reference', reference.value);
-      formData.append('course', course.value);
-      formData.append('cuisine', cuisine.value);
-      formData.append('prep_time', prep_time.value);
-      formData.append('cook_time', cook_time.value);
-      formData.append('servings', servings.value);
-      formData.append('categories', JSON.stringify(categories));
+    const formData = new FormData();
 
-      if(imagePath)
-        formData.append('displayPhoto', base64ToFile(imagePath));
+    formData.append('name', name.value);
+    formData.append('description', description.value);
+    formData.append('reference', reference.value);
+    formData.append('course', course.value);
+    formData.append('cuisine', cuisine.value);
+    formData.append('prep_time', prep_time.value);
+    formData.append('cook_time', cook_time.value);
+    formData.append('servings', servings.value);
+    formData.append('categories', JSON.stringify(categories));
+
+    if(typeof imagePath === 'string')
+      formData.append('displayPhoto', base64ToFile(imagePath));
 
 
-      const ingredients = form.controls['ingredients'] as FormArray;
-      const instructions = form.controls['instructions'] as FormArray;
 
-      formData.append('ingredients', JSON.stringify(ingredients.getRawValue()));
-      formData.append('instructions', JSON.stringify(instructions.getRawValue()));
+    const ingredients = form.controls['ingredients'] as FormArray;
+    const instructions = form.controls['instructions'] as FormArray;
+
+    formData.append('ingredients', JSON.stringify(ingredients.getRawValue()));
+    formData.append('instructions', JSON.stringify(instructions.getRawValue()));
+
+    this.loadingService.toggleLoadingStatus();
+    this.store.dispatch(cropImageReset());
+    this.resetCacheRecipe();
+    this.route.navigate(['/overview']);
+
+    this.updateRecipeUseCase.execute({ form : formData, _id }).subscribe((response: { message: string })=> {
+      const message = response.message;
 
       this.loadingService.toggleLoadingStatus();
-      this.store.dispatch(cropImageReset());
-      this.resetCacheRecipe();
-      this.route.navigate(['/overview']);
+      this._snackBarServices.openDuratedSnackBar(message);
+      this.getAllRecipe();
 
-      this.updateRecipeUseCase.execute({ form : formData, _id }).subscribe((response: { message: string })=> {
-        const message = response.message;
-
-        this.loadingService.toggleLoadingStatus();
-        this._snackBarServices.openDuratedSnackBar(message);
-        this.getAllRecipe();
-
-      });
-
-    }else {
-      this._snackBarServices.openDuratedSnackBar('Error updating, cannot find the id');
-    }
+    });
   }
 
   updateSelectedRecipes(param: Array<RecipeModel>): void {

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { RecipeModel } from '../../core/domain/recipe.model';
-import { cropImageReset } from '../ngrx/crop_image/crop_image.reducer';
+import { cropImageReset, CropImageState } from '../ngrx/crop_image/crop_image.reducer';
 import { RecipeService } from '../ngrx/recipe/recipe.service';
 
 @Component({
@@ -37,10 +37,10 @@ export class RecipeUpdateComponent implements OnInit {
   submit($event: {
     recipeId? : string,
     form : FormGroup,
-    imagePath$: Observable<string | null>,
+    imagePath$: Observable<CropImageState>,
     categories: Array<string>
   }): void {
-    $event.imagePath$.pipe(take(1)).subscribe((imagePath : any)=>{
+    $event.imagePath$.pipe(take(1)).subscribe((imagePath : CropImageState)=>{
       this.recipeService.updateRecipe({
         _id: $event.recipeId,
         form: $event.form,

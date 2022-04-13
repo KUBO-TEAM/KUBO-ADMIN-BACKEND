@@ -1,9 +1,17 @@
 <app-header></app-header>
 
-<button mat-fab color="primary"  class="bottom-4 right-4 !fixed z-50" aria-label="Example icon button with a delete icon"  (click)="sendCroppedImage()" >
-  Crop
-</button>
 
+<div class="bottom-4 right-4 !fixed z-50 flex space-x-2" >
+
+  <button mat-fab color="primary"  aria-label="Example icon button with a delete icon" routerLink="../" >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <button mat-fab color="primary" aria-label="Example icon button with a delete icon"  (click)="sendCroppedImage()" >
+    Crop
+  </button>
+
+</div>
 <app-container class="justify-center flex items-center">
 
   <div class='float-left' >
@@ -13,7 +21,6 @@
         [imageChangedEvent]="imageChangedEvent"
         [maintainAspectRatio]="true"
         [aspectRatio]="2/3"
-        [resizeToWidth]="500"
         format="png"
         (imageCropped)="imageCropped($event)"
         (imageLoaded)="imageLoaded()"

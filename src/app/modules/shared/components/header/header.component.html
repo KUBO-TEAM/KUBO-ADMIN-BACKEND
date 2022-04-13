@@ -1,18 +1,20 @@
 
+<section class="sticky top-0 z-50">
 
+    <mat-toolbar color="primary">
+      <section class="container mx-auto flex justify-between">
+          <span class="cursor-pointer text-lg" routerLink="/overview">KUBO</span>
+          <span class="flex-auto"></span>
+          <div mat-icon-button (click)="logout()" class="cursor-pointer flex items-center justify-center">
+            <span class="mr-2 text-sm">Logout</span>
+            <mat-icon>logout</mat-icon>
+          </div>
+      </section>
 
-<mat-toolbar color="primary">
-    <section class="container mx-auto flex justify-between">
-      <span class="cursor-pointer" routerLink="/overview">KUBO API</span>
-      <span class="flex-auto"></span>
-      <button mat-icon-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-      </button>
+  </mat-toolbar>
 
-      <ng-container *ngIf="loadingService.loadingStatus">
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-      </ng-container>
+  <ng-container *ngIf="loadingService.loadingStatus">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-container>
 
-  </section>
-</mat-toolbar>
-
+</section>
