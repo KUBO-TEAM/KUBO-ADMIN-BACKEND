@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SnackbarService } from '../../shared/services/snackbar.service';
 import { LoginUserUsecase } from '../core/usecases/login-user.usecase';
 
 import decode from 'jwt-decode';
 import { Router } from '@angular/router';
+import { RecipeService } from '../../recipe-crud/presentation/ngrx/recipe/recipe.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ApiAuthenticationService {
     private loginUserUseCase : LoginUserUsecase,
     private snackBarService: SnackbarService,
     private router: Router,
+    private injector: Injector,
   ) { }
 
   /** Chech is user is authenticated */
@@ -35,8 +37,12 @@ export class ApiAuthenticationService {
   /** Login User */
   loginUser(params: {email: string, password: string}) : void{
     this.loginUserUseCase.execute(params).subscribe({
-      next: (v) => {
+        next: (v) => {
         localStorage.setItem('userToken', v.token)
+
+        const recipeService = this.injector.get<RecipeService>(RecipeService);
+        recipeService.getAllRecipe();
+
         this.router.navigate(['/overview']);
         this.snackBarService.openDuratedSnackBar(v.message);
       },
