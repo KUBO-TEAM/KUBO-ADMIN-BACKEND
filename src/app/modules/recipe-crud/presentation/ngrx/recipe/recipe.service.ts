@@ -97,13 +97,14 @@ export class RecipeService {
     formData.append('name', name.value);
     formData.append('description', description.value);
     formData.append('reference', reference.value);
-    formData.append('course', course.value);
-    formData.append('cuisine', cuisine.value);
     formData.append('prep_time', prep_time.value);
     formData.append('cook_time', cook_time.value);
-    formData.append('servings', servings.value);
     formData.append('categories', JSON.stringify(categories));
     formData.append('displayPhoto', base64ToFile(imagePath));
+
+    formData.append('course', course.value);
+    formData.append('cuisine', cuisine.value);
+    formData.append('servings', servings.value);
 
 
     const ingredients = form.controls['ingredients'] as FormArray;

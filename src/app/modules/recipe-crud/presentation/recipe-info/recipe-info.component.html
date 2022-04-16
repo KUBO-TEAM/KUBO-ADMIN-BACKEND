@@ -93,7 +93,7 @@
     <div class="flex space-x-4">
 
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Preparation Time</mat-label>
+        <mat-label>Preparation time in minutes</mat-label>
         <input matInput type="number" [errorStateMatcher]="matcher" formControlName='prep_time'>
         <mat-error *ngIf="form.get('prep_time')?.hasError('required')">
           Preparation Time is <strong>required</strong>
@@ -102,7 +102,7 @@
 
 
       <mat-form-field class="w-full" appearance="fill">
-        <mat-label>Cook Time</mat-label>
+        <mat-label>Cook time in minutes</mat-label>
         <input matInput type="number" [errorStateMatcher]="matcher" formControlName='cook_time'>
         <mat-error *ngIf="form.get('cook_time')?.hasError('required')">
           Cook Time is <strong>required</strong>

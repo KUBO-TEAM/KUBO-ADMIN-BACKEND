@@ -67,11 +67,11 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
 
     this.form = this._fb.group({
       name: ['', [Validators.required] ],
-      course: ['', [Validators.required] ],
-      cuisine: ['', [Validators.required] ],
       prep_time: [null, [Validators.required] ],
       cook_time: [null, [Validators.required] ],
-      servings: [null, [Validators.required] ],
+      course: [''],
+      cuisine: [''],
+      servings: [''],
       description: ['', [Validators.required] ],
       reference: ['', [Validators.required] ],
       ingredients: this._fb.array([
