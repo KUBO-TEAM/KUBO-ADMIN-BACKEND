@@ -29,7 +29,7 @@ export class RecipeTableComponent implements AfterViewInit, OnChanges {
   dataSource = new MatTableDataSource<RecipeModel>();
   selection = new SelectionModel<RecipeModel>(true, []);
 
-  overviewTableColumns: string[] = ['select', 'name', 'description', 'reference', 'categories', 'action'];
+  overviewTableColumns: string[] = ['select', 'name', 'description', 'reference', 'categories', 'view'];
 
   constructor(
     private recipeServices: RecipeService,
