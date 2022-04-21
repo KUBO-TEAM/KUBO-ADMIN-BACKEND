@@ -1,0 +1,47 @@
+
+
+<section class="flex items-center">
+
+  <div class="flex items-center justify-center  w-[300px] h-[300px] " style="border:2px dashed #dae1e7; ">
+    <div class="flex flex-col justify-center items-center ">
+
+      <img id="blah" [src]="imgSrc" alt="" width="200" />
+
+
+      <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
+
+
+      <app-button (click)="fileUploadElement.click()" class="mt-4">
+        Upload image
+      </app-button>
+
+    </div>
+
+  </div>
+
+  <div class="text-gray-700 px-4">
+    <mat-icon>
+      arrow_forward
+    </mat-icon>
+  </div>
+
+  <div class="flex items-center justify-center  w-[300px] h-[300px] " style="border:2px dashed #dae1e7; ">
+    <div class="flex flex-col justify-center items-center ">
+
+      <span class="text-lg text-gray-600">Result</span>
+
+      <img id="blah" [src]="" alt="" width="200" />
+
+    </div>
+  </div>
+
+</section>
+
+
+<section class="flex justify-center py-4">
+
+  <app-button class="mt-4" (click)="detect()">
+    Test Model
+  </app-button>
+
+</section>
