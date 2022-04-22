@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../../shared/shared.module';
 import { AiModelComponent } from './ai-model/ai-model.component';
 import { DetectComponent } from './detect/detect.component';
-import { NgrxModule } from './ngrx/ngrx.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { NgrxModule } from './ngrx/ngrx.module';
     CommonModule,
     SharedModule,
     MatIconModule,
-    NgrxModule,
     ReactiveFormsModule,
   ],
 })
