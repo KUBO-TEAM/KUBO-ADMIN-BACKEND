@@ -12,4 +12,5 @@ export class AiModelComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
 }

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { AiModelService } from '../ngrx/ai-model.service';
 
 @Component({
   selector: 'app-detect',
@@ -8,8 +11,17 @@ import { Component, OnInit } from '@angular/core';
 export class DetectComponent implements OnInit {
 
   imgSrc!: any;
+  imageFile!: File;
 
-  constructor() { }
+  resultImage$ : Observable<string>;
+
+
+  constructor(
+    private aiModelService: AiModelService,
+    private store: Store<{detectImageReducer: string}>
+  ) {
+    this.resultImage$ = store.select('detectImageReducer');
+  }
 
   ngOnInit(): void {
   }
@@ -17,17 +29,18 @@ export class DetectComponent implements OnInit {
 
   fileChangeEvent(event: any) {
     if (event.target.files && event.target.files[0]) {
-        const file = event.target.files[0];
+        this.imageFile = event.target.files[0];
 
         const reader = new FileReader();
         reader.onload = e => this.imgSrc = reader.result;
 
-        reader.readAsDataURL(file);
+        reader.readAsDataURL(this.imageFile);
     }
   }
 
   detect(){
-
+    if(this.imageFile)
+      this.aiModelService.detectImage(this.imageFile);
   }
 
 }
