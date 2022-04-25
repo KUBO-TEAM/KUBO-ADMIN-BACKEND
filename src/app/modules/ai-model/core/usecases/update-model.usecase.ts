@@ -5,14 +5,14 @@ import { AiRepository } from "../repositories/ai.repository";
 @Injectable({
   providedIn: 'root'
 })
-export class DetectImageUseCase implements UseCase< {form: FormData}, {message: string, imageUrl: string}>{
+export class UpdateModelUseCase implements UseCase< {file: File,}, {message: string}>{
 
   constructor(
     private aiRepository: AiRepository,
   ){}
 
-  execute(params: {form: FormData }): Observable<{message: string, imageUrl: string}> {
-    return this.aiRepository.detectImage(params);
+  execute(params: {file: File, }): Observable<{message: string}> {
+    return this.aiRepository.updateModel(params);
   }
 
 }

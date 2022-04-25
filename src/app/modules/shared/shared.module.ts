@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
-import { ButtonComponent } from './components/button/button.component';
-import { MatButtonModule } from '@angular/material/button';
 import { ContainerComponent } from './components/container/container.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatIconModule} from '@angular/material/icon';
@@ -20,7 +18,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 @NgModule({
   declarations: [
     HeaderComponent,
-    ButtonComponent,
     ContainerComponent,
     TypeofPipe,
     SnackbarComponent,
@@ -30,7 +27,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     CommonModule,
     MatToolbarModule,
     MatInputModule,
-    MatButtonModule,
     MatCheckboxModule,
     MatIconModule,
     RouterModule,
@@ -40,7 +36,6 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
   ],
   exports: [
     HeaderComponent,
-    ButtonComponent,
     ContainerComponent,
     TypeofPipe,
     TruncatePipe

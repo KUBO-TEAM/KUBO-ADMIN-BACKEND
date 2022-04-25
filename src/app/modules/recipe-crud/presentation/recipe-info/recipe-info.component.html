@@ -31,9 +31,10 @@
         <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
 
 
-        <app-button (click)="fileUploadElement.click()" class="mt-4">
+
+        <button mat-raised-button color="primary" (click)="fileUploadElement.click()" class="mt-4">
           Or select Image
-        </app-button>
+        </button>
 
       </div>
     </div>

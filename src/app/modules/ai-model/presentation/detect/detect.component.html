@@ -1,47 +1,42 @@
 
-<section class="flex items-center">
 
-  <div class="flex items-center justify-center  w-[300px] h-[300px] " style="border:2px dashed #dae1e7; ">
+
+<section class="flex justify-center items-center py-4">
+
+  <div class="flex items-center justify-center h-[500px] flex-1 " style="border:2px dashed #dae1e7; ">
     <div class="flex flex-col justify-center items-center ">
 
-      <img id="blah" [src]="imgSrc" alt="" width="200" />
+      <img id="blah" [src]="imgSrc" alt="" width="400" />
 
 
       <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
 
-
-      <app-button (click)="fileUploadElement.click()" class="mt-4">
+      <button mat-raised-button color="primary" (click)="fileUploadElement.click()" [disabled]="loadingService.loadingStatus" >
         Upload image
-      </app-button>
+      </button>
 
     </div>
 
   </div>
 
   <div class="text-gray-700 px-4">
-    <mat-icon>
-      arrow_forward
-    </mat-icon>
+
+    <button mat-raised-button color="primary" (click)="detect()" [disabled]="loadingService.loadingStatus" class="w-full">
+      Detect Image
+      <mat-icon>
+        arrow_forward
+      </mat-icon>
+    </button>
+
   </div>
 
-  <div class="flex items-center justify-center  w-[300px] h-[300px] " style="border:2px dashed #dae1e7; ">
+  <div class="flex items-center justify-center h-[500px] flex-1 " style="border:2px dashed #dae1e7; ">
     <div class="flex flex-col justify-center items-center ">
 
-      <span class="text-lg text-gray-600">Result</span>
-
-      <img [src]="resultImage$ | async" alt="" width="200" />
+      <img [src]="resultImage$ | async" alt="" width="400" />
 
     </div>
   </div>
-
-</section>
-
-
-<section class="flex justify-center py-4">
-
-  <app-button class="mt-4" (click)="detect()">
-    Test Model
-  </app-button>
 
 </section>
 

@@ -42,7 +42,6 @@ export class RecipeService {
   private cachedRecipe : CachedRecipe | undefined;
 
   getAllRecipe(){
-    console.log('test');
 
     this.store.dispatch(recipeFetchInProgress());
 

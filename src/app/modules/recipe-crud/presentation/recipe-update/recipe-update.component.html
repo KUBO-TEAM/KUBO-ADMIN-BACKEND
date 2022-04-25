@@ -3,9 +3,9 @@
 <app-container>
 
   <app-recipe-info [recipe]="recipe$ | async"  (onSubmit)="submit($event)" >
-    <app-button [expand]="true" submit>
+    <button mat-raised-button color="primary" submit>
       Update Recipe
-    </app-button>
+    </button>
   </app-recipe-info>
 
 </app-container>

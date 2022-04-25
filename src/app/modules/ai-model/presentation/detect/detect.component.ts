@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { LoadingService } from 'src/app/modules/shared/services/loading.service';
 import { AiModelService } from '../ngrx/ai-model.service';
 
 @Component({
@@ -16,11 +17,13 @@ export class DetectComponent implements OnInit {
   resultImage$ : Observable<string>;
 
 
+
   constructor(
     private aiModelService: AiModelService,
-    private store: Store<{detectImageReducer: string}>
+    private store: Store<{detectImageReducer: string}>,
+    public loadingService : LoadingService,
   ) {
-    this.resultImage$ = store.select('detectImageReducer');
+    this.resultImage$ = this.store.select('detectImageReducer');
   }
 
   ngOnInit(): void {
@@ -39,6 +42,7 @@ export class DetectComponent implements OnInit {
   }
 
   detect(){
+
     if(this.imageFile)
       this.aiModelService.detectImage(this.imageFile);
   }

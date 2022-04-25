@@ -37,9 +37,9 @@ import { MatInputModule } from '@angular/material/input';
     RouterModule,
     MatPaginatorModule,
     MatSortModule,
-    MatButtonModule,
     MatCheckboxModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
   ],
 })
 export class PresentationModule { }

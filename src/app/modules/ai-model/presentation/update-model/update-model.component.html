@@ -1,0 +1,9 @@
+<section class="py-4">
+
+  <input type="file" (change)="fileChangeEvent($event)" #weightFile class="hidden" accept=".weights">
+
+  <button mat-raised-button color="primary" (click)="weightFile.click()" class="mt-4" [disabled]="loadingService.loadingStatus">
+    Model last update : {{ (latestAiModel$ | async)?.createdAt | date:'medium'}} ( Click to update )
+  </button>
+
+</section>

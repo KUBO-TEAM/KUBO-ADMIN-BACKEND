@@ -7,6 +7,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { NgrxModule } from './ngrx/ngrx.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -21,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
     MatCheckboxModule,
     NgrxModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
 })
 export class PresentationModule { }

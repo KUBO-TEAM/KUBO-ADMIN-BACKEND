@@ -16,12 +16,14 @@ import { getRecipeReducer } from './modules/recipe-crud/presentation/ngrx/recipe
 import { detectImageReducer } from './modules/ai-model/presentation/ngrx/ai/detect-image/detect-image-reducer';
 import { AiRepository } from './modules/ai-model/core/repositories/ai.repository';
 import { AiRepositoryImpl } from './modules/ai-model/data/repository/ai-repository/ai-repository-impl';
+import { getLatestAiModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-ai-model/detect-image-reducer';
 
 const reducer:object = {
   cropImageReducer: cropImageReducer,
   getAllRecipeReducer: getAllRecipeReducer,
   getRecipeReducer: getRecipeReducer,
-  detectImage: detectImageReducer,
+  detectImageReducer: detectImageReducer,
+  getLatestAiModelReducer: getLatestAiModelReducer,
 };
 @NgModule({
   declarations: [
