@@ -5,14 +5,14 @@ import { AiRepository } from "../repositories/ai.repository";
 @Injectable({
   providedIn: 'root'
 })
-export class UpdateModelUseCase implements UseCase< {file: File,}, {message: string}>{
+export class UpdateYolov4TinyModelUseCase implements UseCase< {file: File,}, {message: string}>{
 
   constructor(
     private aiRepository: AiRepository,
   ){}
 
   execute(params: {file: File, }): Observable<{message: string}> {
-    return this.aiRepository.updateModel(params);
+    return this.aiRepository.updateYolov4TinyModel(params);
   }
 
 }

@@ -1,33 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingService } from 'src/app/modules/shared/services/loading.service';
-import { AiModelService } from '../ngrx/ai-model.service';
 
 @Component({
   selector: 'app-detect',
   templateUrl: './detect.component.html',
   styleUrls: ['./detect.component.sass']
 })
-export class DetectComponent implements OnInit {
+export class DetectComponent {
 
-  imgSrc!: any;
+  @Input('resultImage') resultImage : string | null = null;
+  @Output('detect') detect = new EventEmitter<{image : File}>();
+
   imageFile!: File;
-
-  resultImage$ : Observable<string>;
-
-
+  imgSrc!: any;
 
   constructor(
-    private aiModelService: AiModelService,
-    private store: Store<{detectImageReducer: string}>,
     public loadingService : LoadingService,
-  ) {
-    this.resultImage$ = this.store.select('detectImageReducer');
-  }
-
-  ngOnInit(): void {
-  }
+  ) {}
 
 
   fileChangeEvent(event: any) {
@@ -41,10 +30,8 @@ export class DetectComponent implements OnInit {
     }
   }
 
-  detect(){
-
-    if(this.imageFile)
-      this.aiModelService.detectImage(this.imageFile);
+  onDetect(){
+    this.detect.emit({image: this.imageFile });
   }
 
 }

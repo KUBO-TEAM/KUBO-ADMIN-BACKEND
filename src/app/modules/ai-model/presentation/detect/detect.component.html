@@ -6,14 +6,16 @@
   <div class="flex items-center justify-center h-[500px] flex-1 " style="border:2px dashed #dae1e7; ">
     <div class="flex flex-col justify-center items-center ">
 
-      <img id="blah" [src]="imgSrc" alt="" width="400" />
+      <img id="blah" [src]="imgSrc" alt="" />
 
 
       <input type="file" class="hidden" accept="image/*" (change)="fileChangeEvent($event)" #fileUploadElement>
 
-      <button mat-raised-button color="primary" (click)="fileUploadElement.click()" [disabled]="loadingService.loadingStatus" >
-        Upload image
-      </button>
+      <div class="mt-4">
+        <button mat-raised-button color="primary" (click)="fileUploadElement.click()" [disabled]="loadingService.loadingStatus" >
+          Upload image
+        </button>
+      </div>
 
     </div>
 
@@ -21,19 +23,19 @@
 
   <div class="text-gray-700 px-4">
 
-    <button mat-raised-button color="primary" (click)="detect()" [disabled]="loadingService.loadingStatus" class="w-full">
-      Detect Image
-      <mat-icon>
-        arrow_forward
-      </mat-icon>
-    </button>
+      <button mat-raised-button color="primary" (click)="onDetect()" [disabled]="loadingService.loadingStatus" class="w-full">
+        Detect Image
+        <mat-icon>
+          arrow_forward
+        </mat-icon>
+      </button>
 
   </div>
 
   <div class="flex items-center justify-center h-[500px] flex-1 " style="border:2px dashed #dae1e7; ">
     <div class="flex flex-col justify-center items-center ">
 
-      <img [src]="resultImage$ | async" alt="" width="400" />
+      <img [src]="resultImage" alt="" />
 
     </div>
   </div>

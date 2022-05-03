@@ -1,0 +1,9 @@
+<!-- Update Model -->
+<div class="flex-1">
+  <app-update-model (fileChangeEvent)="updateModel($event)" [latestAiModel]="latestAiModel$ | async"></app-update-model>
+</div>
+
+<!-- Detection -->
+<div class="flex-1">
+  <app-detect [resultImage]="resultImage$ | async" (detect)="detect($event)"></app-detect>
+</div>

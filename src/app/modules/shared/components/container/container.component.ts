@@ -7,7 +7,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 })
 export class ContainerComponent implements OnInit {
 
-  @HostBinding('class') class = 'block container mx-auto px-4 lg:px-0';
+  @HostBinding('class') class = 'block container mx-auto px-4';
 
   constructor() { }
 
