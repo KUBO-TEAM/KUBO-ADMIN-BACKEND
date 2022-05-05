@@ -4,8 +4,8 @@ import { RecipeModel } from "src/app/modules/recipe-crud/core/domain/recipe.mode
 export const recipeFetchInProgress = createAction('[ Recipe ] in progress');
 
 export const recipeFetchSuccess = createAction(
-  '[ Recipe ] fetch success',
-  props<{recipe : RecipeModel }>()
+  '[ List of Recipes ] fetch success',
+  props<{recipes : Array<RecipeModel> }>()
 );
 
 export const recipeFetchFailure = createAction(

@@ -4,7 +4,7 @@
   <section class=" h-fit sticky top-0 pt-[92px] -mt-[92px]" >
 
     <div class="flex flex-col items-center justify-center  w-[500px] h-[500px] " style="border:2px dashed #dae1e7; ">
-      <div class="flex flex-col justify-center items-center ">
+      <div class="flex flex-col items-center justify-center ">
 
         <ng-container *ngIf="((imagePath$ | async) | typeof ) === 'string' ">
 
@@ -42,7 +42,7 @@
   </section>
 
 
-  <form class="flex flex-col justify-center flex-1 overflow-y-auto py-10" [formGroup]="form" (ngSubmit)="emitOnSubmit()">
+  <form class="flex flex-col justify-center flex-1 py-10 overflow-y-auto" [formGroup]="form" (ngSubmit)="emitOnSubmit()">
 
     <mat-form-field class="w-full" appearance="fill">
       <mat-label>Name</mat-label>
@@ -66,6 +66,12 @@
       <mat-error *ngIf="form.get('reference')?.hasError('required')">
         Reference is <strong>required</strong>
       </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="w-full" appearance="fill">
+      <mat-label>Youtube Id</mat-label>
+      <input matInput formControlName='youtubeId'>
     </mat-form-field>
 
 
@@ -122,9 +128,9 @@
     </div>
 
 
-    <label class="text-2xl font-bold text-gray-600 mt-2">Categories</label>
+    <label class="mt-2 text-2xl font-bold text-gray-600">Categories</label>
 
-    <ul class="mb-4 flex flex-wrap ">
+    <ul class="flex flex-wrap mb-4 ">
       <li *ngFor="let category of categoryList" class="mt-[12px] flex-[0_0_20%]">
         <mat-checkbox (change)="categoriesListener(category)" [checked]="categories.isSelected(category)">{{category}}</mat-checkbox>
       </li>
@@ -149,13 +155,13 @@
           </mat-error>
         </mat-form-field>
 
-        <div *ngIf="i != 0" class="flex items-center justify-center text-gray-600 cursor-pointer pl-2" (click)="deleteIngredients(i)" >
+        <div *ngIf="i != 0" class="flex items-center justify-center pl-2 text-gray-600 cursor-pointer" (click)="deleteIngredients(i)" >
             <mat-icon class="text-lg">close</mat-icon>
         </div>
 
       </div>
 
-      <div class="flex items-center text-center justify-center text-gray-600 cursor-pointer " (click)="addIngredient()">
+      <div class="flex items-center justify-center text-center text-gray-600 cursor-pointer " (click)="addIngredient()">
           <mat-icon class="text-lg">add</mat-icon>
           <span class="mt-[7px]">Add ingredient</span>
       </div>
@@ -178,14 +184,14 @@
           </mat-error>
         </mat-form-field>
 
-        <div *ngIf="i != 0" class="flex items-center justify-center text-gray-600 cursor-pointer pl-2" (click)="deleteInstructions(i)">
+        <div *ngIf="i != 0" class="flex items-center justify-center pl-2 text-gray-600 cursor-pointer" (click)="deleteInstructions(i)">
             <mat-icon class="text-lg">close</mat-icon>
         </div>
 
       </div>
 
 
-      <div class="flex items-center text-center justify-center text-gray-600 cursor-pointer " (click)="addInstruction()">
+      <div class="flex items-center justify-center text-center text-gray-600 cursor-pointer " (click)="addInstruction()">
           <mat-icon class="text-lg">add</mat-icon>
           <span class="mt-[7px]">Add instruction</span>
       </div>

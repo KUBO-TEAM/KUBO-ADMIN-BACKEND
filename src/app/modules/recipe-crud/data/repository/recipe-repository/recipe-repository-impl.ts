@@ -22,17 +22,12 @@ export class RecipeRepositoryImpl extends RecipeRepository {
     super();
   }
 
-  getAllRecipes(): Observable<RecipeModel> {
+  getAllRecipes(): Observable<{message: string, data: RecipeEntity[]}> {
     return this.http.get<{message: string, data: RecipeEntity[]}>(environment.url + 'api/recipes/',
       {
         headers : { Authorization : `Bearer ${this.authService.userToken()}`},
       }
-    )
-      .pipe(mergeMap((item) => {
-
-        return item.data
-      }))
-      .pipe(map(this.mapper.mapFrom));
+    );
   }
 
   getRecipe(_id: string): Observable<RecipeModel> {

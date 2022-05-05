@@ -11,6 +11,7 @@ export interface RecipeEntity{
   servings: string;
 
   reference: string;
+  youtubeId?: string;
   displayPhoto ?: string;
 
   categories: Array<string>;

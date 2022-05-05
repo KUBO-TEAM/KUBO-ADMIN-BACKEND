@@ -18,6 +18,7 @@ export class RecipeRepositoryMapper extends Mapper<RecipeEntity, RecipeModel>{
       servings: param.servings,
 
       reference: param.reference,
+      youtubeId: param.youtubeId,
 
       displayPhoto: param.displayPhoto,
 
@@ -41,6 +42,7 @@ export class RecipeRepositoryMapper extends Mapper<RecipeEntity, RecipeModel>{
       servings: param.servings,
 
       reference: param.reference,
+      youtubeId: param.youtubeId,
 
       displayPhoto: param.displayPhoto,
 

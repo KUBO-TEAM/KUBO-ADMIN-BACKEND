@@ -45,8 +45,8 @@ export class RecipeService {
 
     this.store.dispatch(recipeFetchInProgress());
 
-    this.getAllRecipeUsecase.execute().subscribe((value: RecipeModel)=>{
-      this.store.dispatch(recipeFetchSuccess({recipe: value}));
+    this.getAllRecipeUsecase.execute().subscribe((value: {message: string, data: Array<RecipeModel>})=>{
+      this.store.dispatch(recipeFetchSuccess({recipes: value.data}));
     });
   }
 
@@ -68,6 +68,7 @@ export class RecipeService {
       name,
       description,
       reference,
+      youtubeId,
       course,
       cuisine,
       prep_time,
@@ -96,6 +97,7 @@ export class RecipeService {
     formData.append('name', name.value);
     formData.append('description', description.value);
     formData.append('reference', reference.value);
+    formData.append('youtubeId', youtubeId.value);
     formData.append('prep_time', prep_time.value);
     formData.append('cook_time', cook_time.value);
     formData.append('categories', JSON.stringify(categories));
@@ -173,11 +175,12 @@ export class RecipeService {
       name,
       description,
       reference,
+      youtubeId,
       course,
       cuisine,
       prep_time,
       cook_time,
-      servings
+      servings,
     } = form.controls;
 
     if(form.invalid){
@@ -195,6 +198,7 @@ export class RecipeService {
     formData.append('name', name.value);
     formData.append('description', description.value);
     formData.append('reference', reference.value);
+    formData.append('youtubeId', youtubeId.value);
     formData.append('course', course.value);
     formData.append('cuisine', cuisine.value);
     formData.append('prep_time', prep_time.value);

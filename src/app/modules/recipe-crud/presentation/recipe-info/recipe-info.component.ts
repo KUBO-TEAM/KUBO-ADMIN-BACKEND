@@ -74,6 +74,7 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
       servings: [''],
       description: ['', [Validators.required] ],
       reference: ['', [Validators.required] ],
+      youtubeId: [''],
       ingredients: this._fb.array([
         this._fb.group({
           quantity : 1,
@@ -99,7 +100,8 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     if(this.recipe){
       this.form.patchValue({
-        ...this.recipe
+        ...this.recipe,
+        youtubeId : this.recipe.youtubeId || '',
       });
 
       const instructions = this.form.controls['instructions'] as FormArray;
