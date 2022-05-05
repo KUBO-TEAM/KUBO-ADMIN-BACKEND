@@ -17,9 +17,9 @@ export class Yolov4Component implements OnInit {
 
   constructor(
     private aiModelService: AiModelService,
-    private store : Store<{getLatestAiModelReducer: AiModel, detectImageYolov4Reducer: string}>,
+    private store : Store<{getLatestYolov4ModelReducer: AiModel, detectImageYolov4Reducer: string}>,
   ) {
-    this.latestAiModel$ = this.store.select('getLatestAiModelReducer');
+    this.latestAiModel$ = this.store.select('getLatestYolov4ModelReducer');
     this.resultImage$ = this.store.select('detectImageYolov4Reducer');
   }
 

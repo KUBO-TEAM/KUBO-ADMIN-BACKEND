@@ -20,7 +20,7 @@ export class AiRepositoryImpl extends AiRepository {
 
 
   detectImageYolov4(params: { form: FormData; }): Observable<{ message: string, data : {ingredients: Array<string>, imageUrl: string} }> {
-    return this.http.post<{message : string, data : { ingredients: Array<string>, imageUrl: string} }>(environment.url + 'api/ai/detect/yolov4', params.form,
+    return this.http.post<{message : string, data : { ingredients: Array<string>, imageUrl: string} }>(environment.url + 'api/yolov4/detect', params.form,
         {
           headers : { Authorization : `Bearer ${this.authService.userToken()}`},
         }
@@ -28,7 +28,7 @@ export class AiRepositoryImpl extends AiRepository {
   }
 
   detectImageYolov4Tiny(params: { form: FormData; }): Observable<{ message: string, data : {ingredients: Array<string>, imageUrl: string} }> {
-    return this.http.post<{message : string, data : { ingredients: Array<string>, imageUrl: string} }>(environment.url + 'api/ai/detect/yolov4-tiny', params.form,
+    return this.http.post<{message : string, data : { ingredients: Array<string>, imageUrl: string} }>(environment.url + 'api/yolov4-tiny/detect', params.form,
         {
           headers : { Authorization : `Bearer ${this.authService.userToken()}`},
         }
@@ -40,7 +40,7 @@ export class AiRepositoryImpl extends AiRepository {
     const formData = new FormData();
     formData.append('weight', params.file);
 
-    return this.http.post<{message : string}>(environment.url + 'api/ai/update-model/yolov4', formData,
+    return this.http.post<{message : string}>(environment.url + 'api/yolov4/update-model', formData,
         {
           headers : {
             Authorization : `Bearer ${this.authService.userToken()}`,
@@ -54,7 +54,7 @@ export class AiRepositoryImpl extends AiRepository {
     const formData = new FormData();
     formData.append('weight', params.file);
 
-    return this.http.post<{message : string}>(environment.url + 'api/ai/update-model/yolov4-tiny', formData,
+    return this.http.post<{message : string}>(environment.url + 'api/yolov4-tiny/update-model', formData,
         {
           headers : {
             Authorization : `Bearer ${this.authService.userToken()}`,
@@ -66,7 +66,7 @@ export class AiRepositoryImpl extends AiRepository {
 
   getYolov4LatestAiModel(): Observable<{ message: string; data: AiModel; }> {
 
-    return this.http.get<{message : string, data: AiModel}>(environment.url + 'api/ai/latest-model/yolov4',
+    return this.http.get<{message : string, data: AiModel}>(environment.url + 'api/yolov4/latest-model',
         {
           headers : { Authorization : `Bearer ${this.authService.userToken()}`},
         }
@@ -74,7 +74,7 @@ export class AiRepositoryImpl extends AiRepository {
   }
 
   getYolov4TinyLatestAiModel(): Observable<{ message: string; data: AiModel; }> {
-    return this.http.get<{message : string, data: AiModel}>(environment.url + 'api/ai/latest-model/yolov4-tiny',
+    return this.http.get<{message : string, data: AiModel}>(environment.url + 'api/yolov4-tiny/latest-model',
         {
           headers : { Authorization : `Bearer ${this.authService.userToken()}`},
         }

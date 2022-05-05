@@ -16,8 +16,9 @@ import { getRecipeReducer } from './modules/recipe-crud/presentation/ngrx/recipe
 import { detectImageYolov4Reducer } from './modules/ai-model/presentation/ngrx/ai/detect-image-yolov4/detect-image-yolov4-reducer';
 import { AiRepository } from './modules/ai-model/core/repositories/ai.repository';
 import { AiRepositoryImpl } from './modules/ai-model/data/repository/ai-repository/ai-repository-impl';
-import { getLatestAiModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-ai-model/detect-image-reducer';
+import { getLatestYolov4ModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-yolov4-model/get-latest-yolov4-reducer';
 import { detectImageYolov4TinyReducer } from './modules/ai-model/presentation/ngrx/ai/detect-image-yolov4-tiny/detect-image-yolov4-tiny-reducer';
+import { getLatestYolov4TinyModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-yolov4-tiny-model/get-latest-yolov4-tiny-reducer';
 
 const reducer:object = {
   cropImageReducer: cropImageReducer,
@@ -25,7 +26,8 @@ const reducer:object = {
   getRecipeReducer: getRecipeReducer,
   detectImageYolov4Reducer: detectImageYolov4Reducer,
   detectImageYolov4TinyReducer: detectImageYolov4TinyReducer,
-  getLatestAiModelReducer: getLatestAiModelReducer,
+  getLatestYolov4ModelReducer: getLatestYolov4ModelReducer,
+  getLatestYolov4TinyModelReducer: getLatestYolov4TinyModelReducer,
 };
 @NgModule({
   declarations: [

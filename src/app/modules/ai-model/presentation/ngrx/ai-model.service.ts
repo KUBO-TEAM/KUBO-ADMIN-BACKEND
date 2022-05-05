@@ -12,7 +12,8 @@ import { UpdateYolov4ModelUseCase } from '../../core/usecases/update-yolov4-mode
 import { UpdateYolov4TinyModelUseCase } from '../../core/usecases/update-yolov4-tiny-model.usecase';
 import { detectImageYolov4TinySuccess } from './ai/detect-image-yolov4-tiny/detect-image-yolov4-tiny-actions';
 import { detectImageYolov4Success } from './ai/detect-image-yolov4/detect-image-yolov4-actions';
-import { getLatestAiModelSuccess } from './ai/get-latest-ai-model/detect-image-actions';
+import { getLatestYolov4ModelSuccess } from './ai/get-latest-yolov4-model/get-latest-yolov4-actions';
+import { getLatestYolov4TinyModelSuccess } from './ai/get-latest-yolov4-tiny-model/get-latest-yolov4-tiny-actions';
 
 @Injectable({
   providedIn: 'root'
@@ -85,13 +86,13 @@ export class AiModelService {
 
   fetchYolov4LatestAiModel(){
     this.getYolov4LatestAiModelUseCase.execute().subscribe((param: {message: string, data : AiModel })=>{
-      this.store.dispatch(getLatestAiModelSuccess({aiModel: param.data}));
+      this.store.dispatch(getLatestYolov4ModelSuccess({aiModel: param.data}));
     });
   }
 
   fetchYolov4TinyLatestAiModel(){
     this.getYolov4TinyLatestAiModelUseCase.execute().subscribe((param: {message: string, data : AiModel })=>{
-      this.store.dispatch(getLatestAiModelSuccess({aiModel: param.data}));
+      this.store.dispatch(getLatestYolov4TinyModelSuccess({aiModel: param.data}));
     });
   }
 
