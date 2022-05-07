@@ -1,11 +1,11 @@
 
 <section class="sticky top-0 z-50">
 
-    <mat-toolbar color="primary">
+    <mat-toolbar class="mat-elevation-z3">
       <app-container>
-        <nav class="flex justify-between">
-
-            <span class="cursor-pointer text-base mr-4" routerLink="/overview">KUBO</span>
+        <nav class="flex justify-between items-center">
+            <img src="assets/logo.ico" width="35"/>
+            <span class="cursor-pointer text-base mr-4 ml-1 text-[#285E01]" routerLink="/overview">KUBO</span>
             <span class="cursor-pointer text-base" routerLink="/ai-model">AI Model</span>
             <span class="flex-auto"></span>
             <div mat-icon-button (click)="logout()" class="cursor-pointer flex items-center justify-center">
