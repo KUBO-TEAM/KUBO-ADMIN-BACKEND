@@ -19,6 +19,8 @@ import { AiRepositoryImpl } from './modules/ai-model/data/repository/ai-reposito
 import { getLatestYolov4ModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-yolov4-model/get-latest-yolov4-reducer';
 import { detectImageYolov4TinyReducer } from './modules/ai-model/presentation/ngrx/ai/detect-image-yolov4-tiny/detect-image-yolov4-tiny-reducer';
 import { getLatestYolov4TinyModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-yolov4-tiny-model/get-latest-yolov4-tiny-reducer';
+import { NotificationRepository } from './modules/recipe-crud/core/repositories/notification.repository';
+import { NotificationRepositoryImpl } from './modules/recipe-crud/data/repository/notification-repository/notification-repository-impl';
 
 const reducer:object = {
   cropImageReducer: cropImageReducer,
@@ -44,7 +46,8 @@ const reducer:object = {
   ],
   providers: [
     { provide: RecipeRepository, useClass: RecipeRepositoryImpl },
-    { provide: AiRepository, useClass: AiRepositoryImpl }
+    { provide: AiRepository, useClass: AiRepositoryImpl },
+    { provide: NotificationRepository, useClass: NotificationRepositoryImpl }
   ],
   bootstrap: [AppComponent]
 })

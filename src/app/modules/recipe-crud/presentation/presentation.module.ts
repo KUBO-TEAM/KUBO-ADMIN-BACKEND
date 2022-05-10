@@ -17,6 +17,8 @@ import {MatSortModule} from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
+import { NotifyComponent } from './notify/notify.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { MatInputModule } from '@angular/material/input';
     CropImageComponent,
     RecipeAddComponent,
     RecipeUpdateComponent,
+    NotifyComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
     MatCheckboxModule,
     MatInputModule,
     MatButtonModule,
+    MatDialogModule,
   ],
 })
 export class PresentationModule { }
