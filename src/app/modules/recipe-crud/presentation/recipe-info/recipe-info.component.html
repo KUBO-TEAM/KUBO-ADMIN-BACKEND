@@ -132,7 +132,7 @@
 
     <ul class="flex flex-wrap mb-4 ">
       <li *ngFor="let category of categoryList" class="mt-[12px] flex-[0_0_20%]">
-        <mat-checkbox (change)="categoriesListener(category)" [checked]="categories.isSelected(category)">{{category}}</mat-checkbox>
+        <mat-checkbox (change)="categoriesListener(category)" [checked]="categories.isSelected(category)" color="primary">{{category}}</mat-checkbox>
       </li>
     </ul>
 
