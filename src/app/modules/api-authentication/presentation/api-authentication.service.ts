@@ -43,7 +43,7 @@ export class ApiAuthenticationService {
         const recipeService = this.injector.get<RecipeService>(RecipeService);
         recipeService.getAllRecipe();
 
-        this.router.navigate(['/overview']);
+        this.router.navigate(['/admin/overview']);
         this.snackBarService.openDuratedSnackBar(v.message);
       },
       error : (e) => this.snackBarService.openDuratedSnackBar(e.error.message),
@@ -53,7 +53,7 @@ export class ApiAuthenticationService {
   /** Logout User */
   logoutUser(){
     localStorage.removeItem('userToken');
-    this.router.navigate(['/']);
+    this.router.navigate(['/admin']);
   }
 
 }

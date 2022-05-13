@@ -116,7 +116,7 @@ export class RecipeService {
 
     this.store.dispatch(cropImageReset());
     this.resetCacheRecipe();
-    this.route.navigate(['/overview']);
+    this.route.navigate(['/admin/overview']);
 
     this.loadingService.toggleLoadingStatus();
 
@@ -220,7 +220,7 @@ export class RecipeService {
     this.loadingService.toggleLoadingStatus();
     this.store.dispatch(cropImageReset());
     this.resetCacheRecipe();
-    this.route.navigate(['/overview']);
+    this.route.navigate(['/admin/overview']);
 
     this.updateRecipeUseCase.execute({ form : formData, _id }).subscribe((response: { message: string })=> {
       const message = response.message;

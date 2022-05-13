@@ -8,22 +8,22 @@ import { AuthGuard } from '../shared/services/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'overview',
+    path: 'admin/overview',
     component: RecipeCrudOverviewComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'overview/add',
+    path: 'admin/overview/add',
     component: RecipeAddComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'overview/add/crop-image',
+    path: 'admin/overview/add/crop-image',
     component: CropImageComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'overview/update/:id',
+    path: 'admin/overview/update/:id',
     component: RecipeUpdateComponent,
     canActivate: [AuthGuard]
   },

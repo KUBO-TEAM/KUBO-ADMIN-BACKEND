@@ -4,7 +4,7 @@ import { AuthGuard } from '../shared/services/auth.guard';
 import { VerificationPageComponent } from './presentation/verification-page/verification-page.component';
 
 const routes: Routes = [
-  {path: '', component: VerificationPageComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: VerificationPageComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ import { AiModelComponent } from './presentation/ai-model/ai-model.component';
 
 const routes: Routes = [
   {
-    path: 'ai-model',
+    path: 'admin/ai-model',
     component: AiModelComponent,
     canActivate: [AuthGuard]
   },

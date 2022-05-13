@@ -154,7 +154,7 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
   fileChangeEvent(event: any) {
     this.store.dispatch(cropImage({event}));
     this.recipeService.setCachedRecipe({ form: this.form, categories: this.categories.selected });
-    this.router.navigate(['/overview/add/crop-image']);
+    this.router.navigate(['admin/overview/add/crop-image']);
   }
 
   categoriesListener(value: string){
