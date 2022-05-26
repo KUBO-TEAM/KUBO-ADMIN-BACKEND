@@ -42,16 +42,16 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
   categories = new SelectionModel<string>(true, []);
 
   categoryList : string[] = [
-    'Talong',
-    'Okra',
-    'Repolyo',
-    'Ampalaya',
-    'KangKong',
-    'Carrot',
-    'Kamatis',
-    'Sayote',
-    'Upo',
-    'Sitaw',
+    'talong',
+    'okra',
+    'repolyo',
+    'ampalaya',
+    'kangkong',
+    'carrot',
+    'kamatis',
+    'sayote',
+    'upo',
+    'sitaw',
   ];
 
   matcher = new MyErrorStateMatcher();
