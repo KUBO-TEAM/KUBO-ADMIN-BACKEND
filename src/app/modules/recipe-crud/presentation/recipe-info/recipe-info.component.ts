@@ -77,7 +77,7 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
       youtubeId: [''],
       ingredients: this._fb.array([
         this._fb.group({
-          quantity : 1,
+          quantity : [1, [Validators.required]],
           ingredient: ['', [Validators.required]],
         }),
       ]),
@@ -191,7 +191,7 @@ export class RecipeInfoComponent implements OnChanges, OnInit {
 
     ingredients.push(
       this._fb.group({
-        quantity : 1,
+        quantity : [1, [Validators.required]],
         ingredient : ['', [Validators.required]]
       }),
     );
