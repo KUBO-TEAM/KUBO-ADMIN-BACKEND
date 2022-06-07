@@ -38,6 +38,7 @@ export class FeedbacksTableComponent implements AfterViewInit, OnChanges  {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+
     if(this.feedbacks){
       this.dataSource.data = this.feedbacks
     }

@@ -22,6 +22,10 @@ import { getLatestYolov4TinyModelReducer } from './modules/ai-model/presentation
 import { NotificationRepository } from './modules/recipe-crud/core/repositories/notification.repository';
 import { NotificationRepositoryImpl } from './modules/recipe-crud/data/repository/notification-repository/notification-repository-impl';
 import { FeedbacksModule } from './modules/feedbacks/feedbacks.module';
+import { GetAllFeedbacksUsecase } from './modules/feedbacks/core/usecases/get-all-feedbacks.usecase';
+import { getAllFeedbacksReducer } from './modules/feedbacks/presentation/ngrx/get-all-feedbacks/get-all-feedbacks-reducer';
+import { FeedbacksRepository } from './modules/feedbacks/core/repository/feedbacks.repository';
+import { FeedbacksRepositoryImpl } from './modules/feedbacks/data/repository/feedbacks-repository-impl';
 
 const reducer:object = {
   cropImageReducer: cropImageReducer,
@@ -31,6 +35,7 @@ const reducer:object = {
   detectImageYolov4TinyReducer: detectImageYolov4TinyReducer,
   getLatestYolov4ModelReducer: getLatestYolov4ModelReducer,
   getLatestYolov4TinyModelReducer: getLatestYolov4TinyModelReducer,
+  getAllFeedbacksReducer: getAllFeedbacksReducer,
 };
 @NgModule({
   declarations: [
@@ -49,7 +54,8 @@ const reducer:object = {
   providers: [
     { provide: RecipeRepository, useClass: RecipeRepositoryImpl },
     { provide: AiRepository, useClass: AiRepositoryImpl },
-    { provide: NotificationRepository, useClass: NotificationRepositoryImpl }
+    { provide: NotificationRepository, useClass: NotificationRepositoryImpl },
+    { provide: FeedbacksRepository, useClass: FeedbacksRepositoryImpl }
   ],
   bootstrap: [AppComponent]
 })
