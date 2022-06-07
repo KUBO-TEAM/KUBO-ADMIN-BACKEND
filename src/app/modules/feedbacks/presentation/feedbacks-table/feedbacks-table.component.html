@@ -1,0 +1,41 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z0" matSort>
+
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let element">
+      <div class="flex items-center space-x-4 py-2">
+        <span>{{element.name | truncate:40 }}</span>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="comments">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Comments </th>
+    <td mat-cell *matCellDef="let element"> {{element.comments | truncate:40}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email | truncate:40}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+    <td mat-cell *matCellDef="let element">
+      <span *ngFor="let ingredient of element.phne">
+        <strong>{{ingredient}}</strong>,
+      </span>
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="overviewTableColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: overviewTableColumns;"
+    class=" hover:bg-gray-100"
+  ></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[20, 50, 80, 100]" aria-label="Select page of recipes"></mat-paginator>

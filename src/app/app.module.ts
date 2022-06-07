@@ -21,6 +21,7 @@ import { detectImageYolov4TinyReducer } from './modules/ai-model/presentation/ng
 import { getLatestYolov4TinyModelReducer } from './modules/ai-model/presentation/ngrx/ai/get-latest-yolov4-tiny-model/get-latest-yolov4-tiny-reducer';
 import { NotificationRepository } from './modules/recipe-crud/core/repositories/notification.repository';
 import { NotificationRepositoryImpl } from './modules/recipe-crud/data/repository/notification-repository/notification-repository-impl';
+import { FeedbacksModule } from './modules/feedbacks/feedbacks.module';
 
 const reducer:object = {
   cropImageReducer: cropImageReducer,
@@ -42,6 +43,7 @@ const reducer:object = {
     RecipeCrudModule,
     AiModelModule,
     RouterModule,
+    FeedbacksModule,
     BrowserAnimationsModule,
   ],
   providers: [
